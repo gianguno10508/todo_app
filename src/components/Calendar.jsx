@@ -27,7 +27,7 @@ const Calendar = () => {
     // Tính toán ngày bắt đầu của tuần
     const weekStart = new Date(valueDate || currentDate);
     weekStart.setDate(weekStart.getDate() - currentDayOfWeek);
-
+    const mode = localStorage.getItem("data-theme");
     for (let i = 0; i < daysInWeek; i++) {
       console.log(i);
       const day = new Date(weekStart);
@@ -46,7 +46,7 @@ const Calendar = () => {
           { name: "Event 1", time: "10:00 AM" },
           { name: "Event 2", time: "2:00 PM" },
         ],
-        color: isToday ? "bg-blue-600" : "bg-indigo-950",
+        color: isToday ? "bg-blue-300" : "bg-slate-200",
       };
 
       weekDays.push(dayObj);
@@ -66,7 +66,6 @@ const Calendar = () => {
 
   // Handler cho nút Prev
   const handlePrevWeek = () => {
-    console.log(currentDate);
     const prevWeekDate = new Date(currentDate);
     prevWeekDate.setDate(currentDate.getDate() - 7);
     setCurrentDate(prevWeekDate);
@@ -81,7 +80,10 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calendar border-t-2 border-gray-500">
+    <div className="calendar p-4">
+      <div>
+        <h2 className="font-bold text-2xl ">My Dashboard</h2>
+      </div>
       <div className="nav-buttons flex justify-center items-center gap-6 py-5">
         <button
           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
@@ -92,7 +94,7 @@ const Calendar = () => {
             className="text-gray-600 text-xl"
           />
         </button>
-        <input type="date" className="mx-4 cursor-pointer" onChange={handleOnchange} />
+        <input type="date" className="mx-4 cursor-pointer bg-transparent text-lg" onChange={handleOnchange} />
         <button
           onClick={handleNextWeek}
           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"

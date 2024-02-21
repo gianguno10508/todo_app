@@ -1,15 +1,18 @@
-import Calendar from "./components/Calendar";
-import Header from "./components/Header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Main from "./components/Main";
 
 export default function App() {
   return (
-    <div className="container mx-auto max-w-screen-xl p-4 ">
-      <div className="header">
-        <Header />
-      </div>
-      <div className="content pt-4">
-        <Calendar />
-      </div>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

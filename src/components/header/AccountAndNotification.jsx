@@ -7,23 +7,23 @@ import Account from "./account/Account";
 
 const AccountAndNotification = () => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showAccount, setShowAccount] = useState(false);
-
+  // const [showAccount, setShowAccount] = useState(false);
+  const mode = localStorage.getItem("data-theme");
   const handleBellClick = (event) => {
     event.stopPropagation();
     setShowNotifications((prev) => !prev);
   };
-  const handleAccountClick = (event) => {
-    event.stopPropagation();
-    setShowAccount((prev) => !prev);
-  };
+  // const handleAccountClick = (event) => {
+  //   event.stopPropagation();
+  //   setShowAccount((prev) => !prev);
+  // };
   const handleCloseComponents = () => {
     setShowNotifications(false);
-    setShowAccount(false);
+    // setShowAccount(false);
   };
 
   return (
-    <div className="flex flex-row justify-end gap-5">
+    <div className="flex flex-row justify-end gap-5 items-center">
       <div
         className="bg-a6c5e229 border flex flex-row justify-center items-center p-4 w-6 h-6 rounded-full cursor-pointer"
         onClick={handleBellClick}
@@ -36,7 +36,10 @@ const AccountAndNotification = () => {
           />
         )}
       </div>
-      <div
+      <p className={`text-${mode}`}>
+        test1@gmail.com
+      </p>
+      {/* <div
         className="bg-a6c5e229 border flex flex-row justify-center items-center p-4 w-6 h-6 rounded-full cursor-pointer"
         onClick={handleAccountClick}
       >
@@ -47,7 +50,7 @@ const AccountAndNotification = () => {
             onClickOutside={handleCloseComponents}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
