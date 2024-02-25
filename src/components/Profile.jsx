@@ -1,6 +1,18 @@
-const Profile = () => {
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+
+const Profile = (props) => {
+  const [bgDark, setbgDark] = useState(null);
+  useEffect(() => {
+    if (props.darkmode === "active dark mode") {
+      setbgDark("bg-dark-mode");
+    } else {
+      setbgDark(null);
+    }
+  }, [props.darkmode]);
+  console.log(bgDark);
   return (
-    <div className="p-4">
+    <div className={`${bgDark} p-4`}>
       <div className="md:grid md:grid-cols-3 md:gap-6 mt-10 sm:mt-0 p-4">
         <div className="md:col-span-1 flex justify-between">
           <div className="px-4 sm:px-0">
@@ -166,4 +178,9 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    darkmode: state.darkmode,
+  };
+};
+export default connect(mapStateToProps)(Profile);

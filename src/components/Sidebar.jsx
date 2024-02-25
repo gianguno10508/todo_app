@@ -35,9 +35,19 @@ const Sidebar = ({ isOpen, onClose, onTabClick }) => {
                 ? "bg-gray-800 text-gray-300"
                 : "hover:bg-gray-800 hover:text-gray-300"
             }`}
-            onClick={() => handleTabClick("Accounts")}
+            onClick={() => handleTabClick("Calendar")}
           >
-            Accounts
+            Calendar
+          </div>
+          <div
+            className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
+              activeTab === "Accounts"
+                ? "bg-gray-800 text-gray-300"
+                : "hover:bg-gray-800 hover:text-gray-300"
+            }`}
+            onClick={() => handleTabClick("Schedule")}
+          >
+            Schedule
           </div>
           <div
             className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${

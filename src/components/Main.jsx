@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 import Profile from "./Profile";
 import Header from "./Header";
 import Calendar from "./Calendar";
+import Schedule from "./schedule/Schedule";
+import Dashboard from "./dashboard/Dashboard";
 const Main = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
@@ -45,7 +47,7 @@ const Main = () => {
   return (
     <div className="h-screen" style={{ backgroundColor }}>
       {/* Sidebar */}
-      <Sidebar
+      {/* <Sidebar
         isOpen={isSidebarOpen}
         onClose={toggleSidebar}
         onTabClick={handleTabClick}
@@ -58,14 +60,14 @@ const Main = () => {
             onChangeColor={setBackgroundColor}
             onChangeMode={toggleTheme}
           />
-        </div>
-        <div className="content container mx-auto max-w-screen-xl pt-4">
-          {/* <Calendar /> */}
-          {selectedTab === "Dashboard" && <Calendar />}
-          {/* {selectedTab === "Accounts" && <Accounts />} */}
-          {selectedTab === "Profile" && <Profile />}
-        </div>
+        </div> */}
+      <div className="content container mx-auto max-w-screen-xl pt-4">
+        {selectedTab === "Dashboard" && <Dashboard />}
+        {selectedTab === "Calendar" && <Calendar />}
+        {selectedTab === "Schedule" && <Schedule />}
+        {selectedTab === "Profile" && <Profile />}
       </div>
+      {/* </div> */}
     </div>
   );
 };

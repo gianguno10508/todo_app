@@ -3,8 +3,10 @@ import AccountAndNotification from "./header/AccountAndNotification";
 import FormSearch from "./header/FormSearch";
 import DayNightToggle from "react-day-and-night-toggle";
 import { useState } from "react";
+import { actSelectDarkMode } from "../actions";
+import { connect } from "react-redux";
 
-const Header = ({ isSidebarOpen, toggleSidebar, onChangeColor, onChangeMode }) => {
+const Header = ({ props }) => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("data-theme") === "dark" ? true : false
   );
@@ -25,6 +27,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, onChangeColor, onChangeMode }) =
   const handleChangeTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
+      props.setDarkMode("active dark mode");
       localStorage.setItem("data-theme", "dark");
       document.body.setAttribute("data-theme", "dark");
     } else {
@@ -34,8 +37,8 @@ const Header = ({ isSidebarOpen, toggleSidebar, onChangeColor, onChangeMode }) =
   };
   return (
     <div className="flex flex-row container relative mx-auto max-w-screen-xl justify-center items-center p-5">
-      {!isSidebarOpen && (
-        <button className="absolute z-10 left-0" onClick={toggleSidebar}>
+      {!props.isSidebarOpen && (
+        <button className="absolute z-10 left-0" onClick={props.toggleSidebar}>
           <MenuIcon className="h-6 w-6" />
         </button>
       )}
@@ -45,7 +48,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, onChangeColor, onChangeMode }) =
           size={20}
           onChange={handleChangeTheme}
           checked={isDarkMode}
-          onClick={onChangeMode}
+          onClick={props.onChangeMode}
         />
       </div>
       <div className="w-2/4">
@@ -57,4 +60,15 @@ const Header = ({ isSidebarOpen, toggleSidebar, onChangeColor, onChangeMode }) =
     </div>
   );
 };
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setDarkMode: (data) => {
+      dispatch(actSelectDarkMode(data));
+    },
+  };
+};
+const mapStateToProps = (state, ownProps) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
