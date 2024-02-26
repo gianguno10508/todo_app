@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import TrashIcon from "./icons/TrashIcon";
 import PlusIcon from "./icons/PlusIcon";
 import TaskCard from "./TaskCard";
 import { CSS } from "@dnd-kit/utilities";
+import { connect } from "react-redux";
 
 function ColumnContainer({
   column,
@@ -20,6 +21,7 @@ function ColumnContainer({
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
+
 
   const {
     setNodeRef,
@@ -177,4 +179,12 @@ function ColumnContainer({
   );
 }
 
-export default ColumnContainer;
+const mapDispatchToProps = () => {
+  return {};
+};
+const mapStateToProps = (state) => {
+  return {
+    darkmode: state.darkmode,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ColumnContainer);

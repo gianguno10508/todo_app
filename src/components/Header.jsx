@@ -6,37 +6,30 @@ import { useState } from "react";
 import { actSelectDarkMode } from "../actions";
 import { connect } from "react-redux";
 
-const Header = ({ props }) => {
+const Header = (props) => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("data-theme") === "dark" ? true : false
   );
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      const newColorScheme = e.matches ? "dark" : "light";
-
-      setIsDarkMode(newColorScheme === "dark" ? true : false);
-      localStorage.setItem("data-theme", newColorScheme);
-      document.body.setAttribute(
-        "data-theme",
-        localStorage.getItem("data-theme")
-      );
-    });
+  const [darkMode, setDarkMode] = useState("bg-white");
 
   const handleChangeTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
+      setDarkMode("bg-9a9a9a");
       props.setDarkMode("active dark mode");
-      localStorage.setItem("data-theme", "dark");
-      document.body.setAttribute("data-theme", "dark");
+      // localStorage.setItem("data-theme", "dark");
+      // document.body.setAttribute("data-theme", "dark");
     } else {
-      localStorage.setItem("data-theme", "light");
-      document.body.setAttribute("data-theme", "light");
+      setDarkMode("bg-white");
+      props.setDarkMode("active light mode");
+      // localStorage.setItem("data-theme", "light");
+      // document.body.setAttribute("data-theme", "light");
     }
   };
   return (
-    <div className="flex flex-row container relative mx-auto max-w-screen-xl justify-center items-center p-5">
+    <div
+      className={`flex flex-row container relative mx-auto max-w-screen-xl justify-center items-center p-5 ${darkMode}`}
+    >
       {!props.isSidebarOpen && (
         <button className="absolute z-10 left-0" onClick={props.toggleSidebar}>
           <MenuIcon className="h-6 w-6" />
@@ -67,8 +60,5 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-const mapStateToProps = (state, ownProps) => {
-  return {};
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);

@@ -29,7 +29,7 @@ const Notifications = ({ onCloseNotification, onClickOutside  }) => {
 
   return (
     <div
-      className="absolute top-0 max-h-615 min-w-96 overflow-y-auto"
+      className="absolute right-0 z-10 top-11 max-h-615 min-w-96 overflow-y-auto"
       ref={notificationsRef}
       onClick={handleClick}
     >

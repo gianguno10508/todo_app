@@ -12,6 +12,7 @@ module.exports = {
         "282e33": "#282e33",
         "1c2b41": "#1c2b41",
         "3d434a": "#3d434a",
+        "9a9a9a": "#9a9a9a"
       },
       textColor: {
         b6c2cf: "#b6c2cf",

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -12,6 +12,7 @@ import PlusIcon from "./icons/PlusIcon";
 import ColumnContainer from "./ColumnContainer";
 import TaskCard from "./TaskCard";
 import PopupComponent from "./PopupComponent";
+import { connect } from "react-redux";
 
 const defaultCols = [
   {
@@ -97,7 +98,7 @@ const defaultTasks = [
   },
 ];
 
-function Dashboard() {
+function Dashboard(props) {
   const [columns, setColumns] = useState(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [tasks, setTasks] = useState(defaultTasks);
@@ -111,19 +112,30 @@ function Dashboard() {
       },
     })
   );
-
+  const [color, setColor] = useState("text-black");
+  const [bg, setBg] = useState("bg-white");
+  useEffect(() => {
+    if (props.darkmode == "active dark mode") {
+      setColor("text-black");
+      setBg("bg-black");
+    } else {
+      setColor("text-white");
+      setBg("bg-white");
+    }
+  }, [props.darkmode]);
   return (
     <div
-      className="
-        m-auto
-        flex
-        min-h-screen
-        w-full
-        items-center
-        overflow-x-auto
-        overflow-y-hidden
-        px-[40px]
-    "
+      className={`
+      m-auto
+      flex
+      min-h-screen
+      w-full
+      items-center
+      overflow-x-auto
+      overflow-y-hidden
+      px-[40px]
+      ${bg}
+      `}
     >
       {editable && <PopupComponent onClose={() => setEditable(false)} />}
       <DndContext
@@ -336,5 +348,12 @@ function Dashboard() {
 function generateId() {
   return Math.floor(Math.random() * 10001);
 }
-
-export default Dashboard;
+const mapDispatchToProps = () => {
+  return {};
+};
+const mapStateToProps = (state) => {
+  return {
+    darkmode: state.darkmode,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
