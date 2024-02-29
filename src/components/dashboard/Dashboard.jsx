@@ -112,14 +112,38 @@ function Dashboard(props) {
       },
     })
   );
-  const [color, setColor] = useState("text-black");
   const [bg, setBg] = useState("bg-white");
+  const [color, setColor] = useState("text-black");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
+  const [columnId, setColumnId] = useState("");
+  const handleSubmission = (data) => {
+    // Xử lý dữ liệu được trả về từ PopupComponent
+    // setSubmittedData(data);
+    console.log(data);
+    if (data) {
+      const newTask = {
+        id: generateId(),
+        columnId,
+        title: `${data && data.title}`,
+        description: `${data && data.description}`,
+        date: `${data && data.selectedDate}`,
+        image: `${data && data.image}`,
+      };
+
+      setTasks([...tasks, newTask]);
+    }
+    setIsPopupOpen(false); // Đóng PopupComponent sau khi xử lý dữ liệu
+  };
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
   useEffect(() => {
     if (props.darkmode == "active dark mode") {
-      setColor("text-black");
+      setColor("text-white");
       setBg("bg-black");
     } else {
-      setColor("text-white");
+      setColor("text-black");
       setBg("bg-white");
     }
   }, [props.darkmode]);
@@ -137,7 +161,15 @@ function Dashboard(props) {
       ${bg}
       `}
     >
-      {editable && <PopupComponent onClose={() => setEditable(false)} />}
+      {isPopupOpen && (
+        <PopupComponent onClose={closePopup} onSubmit={handleSubmission} />
+      )}
+      {submittedData && (
+        <div>
+          <p>Submitted Title: {submittedData.title}</p>
+          {/* Hiển thị các dữ liệu khác nếu cần */}
+        </div>
+      )}
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
@@ -156,6 +188,8 @@ function Dashboard(props) {
                   createTask={createTask}
                   deleteTask={deleteTask}
                   updateTask={updateTask}
+                  color={color}
+                  bg={bg}
                   updateTaskTest={updateTaskTest}
                   tasks={tasks.filter((task) => task.columnId === col.id)}
                 />
@@ -166,21 +200,20 @@ function Dashboard(props) {
             onClick={() => {
               createNewColumn();
             }}
-            className="
-      h-[60px]
-      w-[350px]
-      min-w-[350px]
-      cursor-pointer
-      rounded-lg
-      bg-mainBackgroundColor
-      border-2
-      border-columnBackgroundColor
-      p-4
-      ring-rose-500
-      hover:ring-2
-      flex
-      gap-2
-      "
+            className={`h-[60px]
+            w-[350px]
+            min-w-[350px]
+            cursor-pointer
+            rounded-lg
+            bg-mainBackgroundColor
+            border-2
+            border-columnBackgroundColor
+            p-4
+            ring-rose-500
+            hover:ring-2
+            flex
+            gap-2
+            ${color}`}
           >
             <PlusIcon />
             Add Column
@@ -197,6 +230,8 @@ function Dashboard(props) {
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
+                color={color}
+                bg={bg}
                 tasks={tasks.filter(
                   (task) => task.columnId === activeColumn.id
                 )}
@@ -217,13 +252,8 @@ function Dashboard(props) {
   );
 
   function createTask(columnId) {
-    const newTask = {
-      id: generateId(),
-      columnId,
-      content: `Task ${tasks.length + 1}`,
-    };
-
-    setTasks([...tasks, newTask]);
+    setColumnId(columnId);
+    setIsPopupOpen(true);
   }
 
   function deleteTask(id) {

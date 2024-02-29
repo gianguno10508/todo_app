@@ -4,7 +4,6 @@ import TrashIcon from "./icons/TrashIcon";
 import PlusIcon from "./icons/PlusIcon";
 import TaskCard from "./TaskCard";
 import { CSS } from "@dnd-kit/utilities";
-import { connect } from "react-redux";
 
 function ColumnContainer({
   column,
@@ -14,6 +13,8 @@ function ColumnContainer({
   tasks,
   deleteTask,
   updateTask,
+  color,
+  bg,
   updateTaskTest,
 }) {
   const [editMode, setEditMode] = useState(false);
@@ -21,7 +22,6 @@ function ColumnContainer({
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
-
 
   const {
     setNodeRef,
@@ -69,15 +69,15 @@ function ColumnContainer({
     <div
       ref={setNodeRef}
       style={style}
-      className="
-  bg-columnBackgroundColor
-  w-[350px]
-  h-[500px]
-  max-h-[500px]
-  rounded-md
-  flex
-  flex-col
-  "
+      className={`bg-columnBackgroundColor
+      w-[350px]
+      h-[500px]
+      max-h-[500px]
+      rounded-md
+      flex
+      flex-col
+      ${color}
+      `}
     >
       {/* Column title */}
       <div
@@ -104,16 +104,16 @@ function ColumnContainer({
       >
         <div className="flex gap-2">
           <div
-            className="
-        flex
-        justify-center
-        items-center
-        bg-columnBackgroundColor
-        px-2
-        py-1
-        text-sm
-        rounded-full
-        "
+            className={`flex
+            justify-center
+            items-center
+            bg-columnBackgroundColor
+            px-2
+            py-1
+            text-sm
+            rounded-full
+            ${color}
+            `}
           >
             0
           </div>
@@ -152,13 +152,15 @@ function ColumnContainer({
       </div>
 
       {/* Column task container */}
-      <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+      <div className={`flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto border-columnBackgroundColor border-4 ${color}`}>
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
             <TaskCard
               key={task.id}
               task={task}
               deleteTask={deleteTask}
+              color={color}
+              bg={bg}
               updateTask={updateTask}
               updateTaskTest={updateTaskTest}
             />
@@ -167,7 +169,7 @@ function ColumnContainer({
       </div>
       {/* Column footer */}
       <button
-        className="flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black"
+        className={`flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black ${color}`}
         onClick={() => {
           createTask(column.id);
         }}
@@ -179,12 +181,4 @@ function ColumnContainer({
   );
 }
 
-const mapDispatchToProps = () => {
-  return {};
-};
-const mapStateToProps = (state) => {
-  return {
-    darkmode: state.darkmode,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ColumnContainer);
+export default ColumnContainer;

@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TrashIcon from "./icons/TrashIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClock,
+  faComment,
+  faPaperclip,
+} from "@fortawesome/free-solid-svg-icons";
 
-function TaskCard({ task, deleteTask, updateTask, updateTaskTest }) {
+function formatDate(dateString) {
+  const dateObj = new Date(dateString);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return dateObj.toLocaleDateString("en-US", options);
+}
+
+function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
 
@@ -37,10 +49,7 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest }) {
       <div
         ref={setNodeRef}
         style={style}
-        className="
-        opacity-30
-      bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-2 border-rose-500  cursor-grab relative
-      "
+        className="opacity-30 bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-2 border-rose-500  cursor-grab relative"
       />
     );
   }
@@ -54,22 +63,35 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest }) {
         {...listeners}
         className="bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative"
       >
-        <textarea
-          className="
-        h-[90%]
-        w-full resize-none border-none rounded bg-transparent text-white focus:outline-none
-        "
+        <div className="img"></div>
+        <div className="content-col">
+          <div className="title-col">
+            <a href="#">{task.title}</a>
+          </div>
+          <div className="content">
+            <div className="date">
+              <FontAwesomeIcon icon={faClock} />
+              {formatDate(task.date)}
+            </div>
+            <div className="comment">
+              <FontAwesomeIcon icon={faComment} />1
+            </div>
+          </div>
+        </div>
+        {/* <textarea
+          className={`h-[90%]
+          w-full resize-none border-none rounded bg-transparent ${color} focus:outline-none`}
           value={task.content}
           autoFocus
           placeholder="Task content here"
-          onBlur={toggleEditMode}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) {
-              toggleEditMode();
-            }
-          }}
-          onChange={(e) => updateTask(task.id, e.target.value)}
-        />
+          // onBlur={toggleEditMode}
+          // onKeyDown={(e) => {
+          //   if (e.key === "Enter" && e.shiftKey) {
+          //     toggleEditMode();
+          //   }
+          // }}
+          // onChange={(e) => updateTask(task.id, e.target.value)}
+        /> */}
       </div>
     );
   }
@@ -89,29 +111,22 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest }) {
         setMouseIsOver(false);
       }}
     >
-      <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+      <p
+        className={`my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
+      >
         {task.content}
       </p>
 
       {mouseIsOver && (
-        <>
-          <button
-            onClick={() => {
-              deleteTask(task.id);
-            }}
-            className="stroke-white absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100"
-          >
-            <TrashIcon />
-          </button>
-          <button
-            onClick={() => {
-              updateTaskTest(task.id);
-            }}
-            className="stroke-white absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100"
-          >
-            ádfssdfsf
-          </button>
-        </>
+        <button
+          onClick={() => {
+            deleteTask(task.id);
+          }}
+          className={`stroke-gray-500
+          hover:bg-columnBackgroundColor absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
+        >
+          <TrashIcon />
+        </button>
       )}
     </div>
   );
