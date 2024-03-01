@@ -5,6 +5,8 @@ import DayNightToggle from "react-day-and-night-toggle";
 import { useState } from "react";
 import { actSelectDarkMode } from "../actions";
 import { connect } from "react-redux";
+import Logo from "../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   const [isDarkMode, setIsDarkMode] = useState(
@@ -32,11 +34,17 @@ const Header = (props) => {
     >
       {!props.isSidebarOpen && (
         <button className="absolute z-10 left-0" onClick={props.toggleSidebar}>
-          <MenuIcon className="h-6 w-6" />
+          <MenuIcon className="h-8 w-8" />
         </button>
       )}
-      <div className="w-1/4 flex gap-4">
-        <p>ádasd</p>
+      <div
+        className={`w-1/4 flex items-center gap-4 ${
+          !props.isSidebarOpen && "ml-5"
+        }`}
+      >
+        <Link to={"/"}>
+          <img src={Logo} alt="Logo" style={{ maxWidth: "150px" }} />
+        </Link>
         <DayNightToggle
           size={20}
           onChange={handleChangeTheme}

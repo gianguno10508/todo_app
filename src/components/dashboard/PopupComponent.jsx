@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { saveAs } from "file-saver";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCreditCard,
+  faCalendarDays,
+  faPaperclip,
+  faBarsStaggered,
+  faComment,
+} from "@fortawesome/free-solid-svg-icons";
 
 Modal.setAppElement("#root");
 
@@ -77,40 +83,65 @@ function PopupComponent({ onClose, onSubmit }) {
         </button>
 
         <form method="post" onSubmit={handleSubmit}>
-          <label htmlFor="title" className="text-l mb-4 font-bold text-left">
+          <label htmlFor="title" className="text-l mb-6 text-left">
             <FontAwesomeIcon icon={faCreditCard} />
-            Title
+            <span className="pl-2 font-bold">Title</span>
+            <input
+              className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </label>
-          <input
-            className="border rounded py-2 px-3 mb-4 w-full bg-ededed"
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
 
-          <h2 className="text-l mb-4 font-bold text-left">Select Date</h2>
-          <input
-            className="border rounded py-2 px-3 mb-4 w-full bg-ededed"
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
+          <label htmlFor="date" className="text-l mb-6 text-left">
+            <FontAwesomeIcon icon={faCalendarDays} />
+            <span className="pl-2 font-bold">Select Date</span>
+            <input
+              className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
+              type="date"
+              id="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </label>
 
-          <h2 className="text-l mb-4 font-bold text-left">Upload Image</h2>
-          <input
-            className="mb-4 w-full"
-            type="file"
-            onChange={handleImageChange}
-          />
+          <label htmlFor="image" className="text-l mb-6 text-left">
+            <FontAwesomeIcon icon={faPaperclip} />
+            <span className="pl-2 font-bold">Upload Image</span>
+            <input
+              className="mb-6 w-full mt-2"
+              type="file"
+              id="image"
+              onChange={handleImageChange}
+            />
+          </label>
 
-          <h2 className="text-l mb-4 font-bold text-left">Description</h2>
-          <textarea
-            className="border rounded py-2 px-3 mb-4 w-full bg-ededed"
-            value={description}
-            rows="5"
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <label htmlFor="description" className="text-l mb-6 text-left">
+            <FontAwesomeIcon icon={faBarsStaggered} />
+            <span className="pl-2 font-bold">Description</span>
+            <textarea
+              className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
+              value={description}
+              placeholder="Add a more detailed description…"
+              rows="5"
+              id="description"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
+
+          <label htmlFor="comment" className="flex items-center justify-between text-l mb-6 text-left">
+            <div className="bg-black w-8 h-8 rounded-full"></div>
+            <input
+              className="border rounded-full py-2 w-11/12 px-3 bg-ededed mt-2"
+              type="text"
+              id="title"
+              placeholder="Write a comment"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
 
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Submit

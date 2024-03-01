@@ -53,7 +53,11 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
       />
     );
   }
-
+  if (bg === "bg-white") {
+    bg = "bg-gray-200";
+  } else {
+    bg = "bg-9a9a9a";
+  }
   if (editMode) {
     return (
       <div
@@ -61,19 +65,19 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
         style={style}
         {...attributes}
         {...listeners}
-        className="bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative"
+        className={`${bg} p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
       >
         <div className="img"></div>
         <div className="content-col">
           <div className="title-col">
             <a href="#">{task.title}</a>
           </div>
-          <div className="content">
-            <div className="date">
+          <div className="content flex gap-3">
+            <div className="date flex gap-1 items-center">
               <FontAwesomeIcon icon={faClock} />
               {formatDate(task.date)}
             </div>
-            <div className="comment">
+            <div className="comment flex gap-1 items-center">
               <FontAwesomeIcon icon={faComment} />1
             </div>
           </div>
@@ -103,7 +107,7 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      className="bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative task"
+      className="bg-gray-300 p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative task"
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}

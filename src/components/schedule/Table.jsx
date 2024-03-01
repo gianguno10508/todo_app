@@ -13,6 +13,8 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    fontWeight: 600,
+    fontSize: 18,
   },
   body: {
     fontSize: 14,
@@ -42,13 +44,13 @@ export default function CustomizedTables(props) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Time</StyledTableCell>
-              <StyledTableCell align="right">Monday</StyledTableCell>
-              <StyledTableCell align="right">Tuesday</StyledTableCell>
-              <StyledTableCell align="right">Wednesday</StyledTableCell>
-              <StyledTableCell align="right">Thursday</StyledTableCell>
-              <StyledTableCell align="right">Friday</StyledTableCell>
-              <StyledTableCell align="right">Saturday</StyledTableCell>
-              <StyledTableCell align="right">Sunday</StyledTableCell>
+              <StyledTableCell align="center">Monday</StyledTableCell>
+              <StyledTableCell align="center">Tuesday</StyledTableCell>
+              <StyledTableCell align="center">Wednesday</StyledTableCell>
+              <StyledTableCell align="center">Thursday</StyledTableCell>
+              <StyledTableCell align="center">Friday</StyledTableCell>
+              <StyledTableCell align="center">Saturday</StyledTableCell>
+              <StyledTableCell align="center">Sunday</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -60,13 +62,13 @@ export default function CustomizedTables(props) {
                   </StyledTableCell>
                 )}
 
-                <StyledTableCell align="right">{row.Monday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Tuesday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Wednesday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Thursday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Friday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Saturday}</StyledTableCell>
-                <StyledTableCell align="right">{row.Sunday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Monday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Tuesday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Wednesday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Thursday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Friday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Saturday}</StyledTableCell>
+                <StyledTableCell align="center">{row.Sunday}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

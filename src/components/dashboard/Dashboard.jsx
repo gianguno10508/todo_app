@@ -139,7 +139,7 @@ function Dashboard(props) {
     setIsPopupOpen(false);
   };
   useEffect(() => {
-    if (props.darkmode == "active dark mode") {
+    if (props.darkmode === "active dark mode") {
       setColor("text-white");
       setBg("bg-black");
     } else {

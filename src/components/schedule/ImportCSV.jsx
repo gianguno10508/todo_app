@@ -34,7 +34,7 @@ function ImportCSV() {
     <div>
       <Input
         type="file"
-        className="input"
+        className="input mb-5"
         onChange={(e) => {
           const file = e.target.files[0];
           readExcel(file);
