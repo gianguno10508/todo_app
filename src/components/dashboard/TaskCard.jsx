@@ -18,7 +18,6 @@ function formatDate(dateString) {
 function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
-
   const {
     setNodeRef,
     attributes,
@@ -65,6 +64,13 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
         style={style}
         {...attributes}
         {...listeners}
+        onMouseEnter={() => {
+          setMouseIsOver(true);
+        }}
+        onMouseLeave={() => {
+          setMouseIsOver(false);
+        }}
+        onClick={toggleEditMode}
         className={`${bg} p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
       >
         <div className="img"></div>
@@ -82,6 +88,17 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
             </div>
           </div>
         </div>
+        {mouseIsOver && (
+          <button
+            onClick={() => {
+              deleteTask(task.id);
+            }}
+            className={`stroke-gray-500
+          hover:bg-columnBackgroundColor absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
+          >
+            <TrashIcon />
+          </button>
+        )}
         {/* <textarea
           className={`h-[90%]
           w-full resize-none border-none rounded bg-transparent ${color} focus:outline-none`}
@@ -118,7 +135,7 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
       <p
         className={`my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
       >
-        {task.content}
+        {task.title}
       </p>
 
       {mouseIsOver && (

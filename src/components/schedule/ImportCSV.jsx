@@ -3,7 +3,7 @@ import * as XLSX from "xlsx";
 import Input from "@material-ui/core/Input";
 import CustomizedTables from "./Table";
 
-function ImportCSV() {
+function ImportCSV(props) {
   const [items, setItems] = useState([]);
 
   const readExcel = (file) => {
@@ -29,18 +29,17 @@ function ImportCSV() {
       setItems(data);
     });
   };
-
   return (
     <div>
       <Input
         type="file"
-        className="input mb-5"
+        className={`input mb-5 ${props.color}`}
         onChange={(e) => {
           const file = e.target.files[0];
           readExcel(file);
         }}
       />
-      {items.length > 0 && <CustomizedTables data={items} />}
+      {items.length > 0 && <CustomizedTables data={items} bg={props.bg} />}
     </div>
   );
 }

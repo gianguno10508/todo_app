@@ -19,9 +19,9 @@ const Schedule = (props) => {
   }, [props.darkmode]);
   return (
     <div className="schedule">
-      <h1 className="text-center text-6xl my-5">Schedule</h1>
+      <h1 className={`text-center text-6xl my-5 ${color}`}>Schedule</h1>
       {/* <ExportCSV csvData={rows} fileName="Foods" /> */}
-      <ImportCSV />
+      <ImportCSV bg={bg} color={color} />
     </div>
   );
 };

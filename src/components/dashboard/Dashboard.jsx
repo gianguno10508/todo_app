@@ -115,7 +115,6 @@ function Dashboard(props) {
   const [bg, setBg] = useState("bg-white");
   const [color, setColor] = useState("text-black");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [submittedData, setSubmittedData] = useState(null);
   const [columnId, setColumnId] = useState("");
   const handleSubmission = (data) => {
     // Xử lý dữ liệu được trả về từ PopupComponent
@@ -164,12 +163,6 @@ function Dashboard(props) {
       {isPopupOpen && (
         <PopupComponent onClose={closePopup} onSubmit={handleSubmission} />
       )}
-      {submittedData && (
-        <div>
-          <p>Submitted Title: {submittedData.title}</p>
-          {/* Hiển thị các dữ liệu khác nếu cần */}
-        </div>
-      )}
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
@@ -190,7 +183,6 @@ function Dashboard(props) {
                   updateTask={updateTask}
                   color={color}
                   bg={bg}
-                  updateTaskTest={updateTaskTest}
                   tasks={tasks.filter((task) => task.columnId === col.id)}
                 />
               ))}
@@ -268,10 +260,6 @@ function Dashboard(props) {
     });
 
     setTasks(newTasks);
-  }
-  function updateTaskTest(id) {
-    console.log(id);
-    setEditable(true);
   }
 
   function createNewColumn() {

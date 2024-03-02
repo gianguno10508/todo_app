@@ -11,8 +11,8 @@ import { ExportReactCSV } from "./ExportReactCSV";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.grey[500],
+    color: theme.palette.common.black,
     fontWeight: 600,
     fontSize: 18,
   },
@@ -40,7 +40,7 @@ export default function CustomizedTables(props) {
   return (
     <div>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table className={`${classes.table}`} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Time</StyledTableCell>

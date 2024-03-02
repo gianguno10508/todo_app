@@ -15,14 +15,12 @@ function ColumnContainer({
   updateTask,
   color,
   bg,
-  updateTaskTest,
 }) {
   const [editMode, setEditMode] = useState(false);
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
-
   const {
     setNodeRef,
     attributes,
@@ -118,7 +116,7 @@ function ColumnContainer({
             0
           </div>
           {!editMode && column.title}
-          {editMode && (
+          {/* {editMode && (
             <input
               className="bg-black focus:border-rose-500 border rounded outline-none px-2"
               value={column.title}
@@ -132,7 +130,7 @@ function ColumnContainer({
                 setEditMode(false);
               }}
             />
-          )}
+          )} */}
         </div>
         <button
           onClick={() => {
@@ -152,7 +150,9 @@ function ColumnContainer({
       </div>
 
       {/* Column task container */}
-      <div className={`flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto border-columnBackgroundColor border-4 ${color}`}>
+      <div
+        className={`flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto border-columnBackgroundColor border-4 ${color}`}
+      >
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
             <TaskCard
@@ -162,7 +162,6 @@ function ColumnContainer({
               color={color}
               bg={bg}
               updateTask={updateTask}
-              updateTaskTest={updateTaskTest}
             />
           ))}
         </SortableContext>
