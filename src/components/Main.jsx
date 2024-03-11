@@ -7,6 +7,7 @@ import Calendar from "./Calendar";
 import Schedule from "./schedule/Schedule";
 import Dashboard from "./dashboard/Dashboard";
 import { connect } from "react-redux";
+import About from "./About";
 const Main = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");

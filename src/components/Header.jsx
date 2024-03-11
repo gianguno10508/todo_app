@@ -51,6 +51,9 @@ const Header = (props) => {
           checked={isDarkMode}
           onClick={props.onChangeMode}
         />
+        <Link to={"/about"}>
+          About me
+        </Link>
       </div>
       <div className="w-2/4">
         <FormSearch />

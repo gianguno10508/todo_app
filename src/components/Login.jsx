@@ -3,11 +3,14 @@ import DrawImage from "../assets/images/draw2.webp";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-
+import FacebookLogin from "react-facebook-login";
 const Login = () => {
   const navigate = useNavigate();
   const handleRedirectRegister = () => {
     navigate("/register");
+  };
+  const responseFacebook = (response) => {
+    console.log(response);
   };
   return (
     <section className="mx-auto max-w-7xl p-7 min-h-screen flex items-center">
@@ -100,7 +103,14 @@ const Login = () => {
             </form>
             {/* <!-- Login button --> */}
             <div className="text-center lg:text-left">
-              <TERipple className="block w-full" rippleColor="light">
+              <FacebookLogin
+                appId="1082534248908784"
+                // autoLoad={true}
+                fields="name,email,picture"
+                callback={responseFacebook}
+                textButton="Login with Facebook"
+              />
+              {/* <TERipple className="block w-full" rippleColor="light">
                 <button
                   type="submit"
                   className="w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
@@ -111,7 +121,7 @@ const Login = () => {
                   />
                   Login With Facebook
                 </button>
-              </TERipple>
+              </TERipple> */}
             </div>
           </div>
         </div>
