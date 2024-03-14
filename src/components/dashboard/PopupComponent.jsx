@@ -138,8 +138,8 @@ function PopupComponent({ onClose, onSubmit }) {
               type="text"
               id="title"
               placeholder="Write a comment"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              // value={title}
+              // onChange={(e) => setTitle(e.target.value)}
             />
           </label>
 

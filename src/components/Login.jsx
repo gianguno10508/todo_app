@@ -102,7 +102,7 @@ const Login = () => {
               </div>
             </form>
             {/* <!-- Login button --> */}
-            <div className="text-center lg:text-left">
+            <div className="container mx-auto flex justify-center items-center">
               <FacebookLogin
                 appId="1082534248908784"
                 // autoLoad={true}

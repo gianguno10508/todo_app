@@ -6,6 +6,7 @@ import { useState } from "react";
 import { actSelectDarkMode } from "../actions";
 import { connect } from "react-redux";
 import Logo from "../assets/images/logo.png";
+import About from "../assets/images/about-me.gif";
 import { Link } from "react-router-dom";
 
 const Header = (props) => {
@@ -52,7 +53,7 @@ const Header = (props) => {
           onClick={props.onChangeMode}
         />
         <Link to={"/about"}>
-          About me
+          <img src={About} alt="about" style={{ maxWidth: "50px", marginRight: "10px", borderRadius: "50%" }} />
         </Link>
       </div>
       <div className="w-2/4">
