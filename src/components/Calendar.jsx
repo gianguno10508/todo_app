@@ -3,6 +3,7 @@ import ColEvents from "./events/ColEvents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
+import { getInforUser } from "../untils/functions";
 
 const Calendar = (props) => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -17,7 +18,7 @@ const Calendar = (props) => {
       setColor("text-black");
     }
   }, [props.darkmode]);
-
+  const user = getInforUser();
   const getCurrentWeekDays = () => {
     const daysInWeek = 7; // Số ngày trong một tuần
     const weekDays = [];
@@ -34,10 +35,19 @@ const Calendar = (props) => {
       "Saturday",
     ];
 
+    const compareDates = (formattedDate, taskDate) => {
+      const formattedParts = formattedDate.split("/");
+      const taskParts = taskDate.split("-");
+      // So sánh năm, tháng và ngày
+      return (
+        formattedParts[2] === taskParts[0] && // Năm
+        0 + formattedParts[1] === taskParts[1] && // Tháng
+        formattedParts[0] === taskParts[2] // Ngày
+      );
+    };
     // Tính toán ngày bắt đầu của tuần
     const weekStart = new Date(valueDate || currentDate);
     weekStart.setDate(weekStart.getDate() - currentDayOfWeek);
-    const mode = localStorage.getItem("data-theme");
     for (let i = 0; i < daysInWeek; i++) {
       const day = new Date(weekStart);
       day.setDate(weekStart.getDate() + i);
@@ -46,17 +56,22 @@ const Calendar = (props) => {
       const formattedDate = `${day.getDate()}/${
         day.getMonth() + 1
       }/${day.getFullYear()}`;
-
+      
       const dayObj = {
-        weekday: daysOfWeek[i], // Đổi từ daysInWeek thành daysOfWeek
+        weekday: daysOfWeek[i],
         date: formattedDate,
-        events: [
-          // Thêm các sự kiện cho mỗi ngày, bạn có thể tùy chỉnh tùy ý
-          { name: "Event 1", time: "10:00 AM" },
-          { name: "Event 2", time: "2:00 PM" },
-        ],
+        events: [], // Khởi tạo events rỗng ban đầu
         color: isToday ? "bg-blue-300" : "bg-slate-200",
       };
+
+      // Duyệt qua từng task trong listTask
+      if(user.dashboard.length > 0){
+        user.dashboard[0].listTask.forEach((task) => {
+          if (compareDates(formattedDate, task.date)) {
+            dayObj.events.push({ name: task.title, description: task.description });
+          }
+        });
+      }
 
       weekDays.push(dayObj);
     }
@@ -91,7 +106,9 @@ const Calendar = (props) => {
   return (
     <div className={`calendar p-4`}>
       <div>
-        <h2 className={`font-bold py-4 text-2xl text-center ${color}`}>My Calendar</h2>
+        <h2 className={`font-bold py-4 text-2xl text-center ${color}`}>
+          My Calendar
+        </h2>
       </div>
       <div className="nav-buttons flex justify-center items-center gap-6 py-5">
         <button
@@ -103,7 +120,11 @@ const Calendar = (props) => {
             className="text-gray-600 text-xl"
           />
         </button>
-        <input type="date" className={`mx-4 cursor-pointer bg-transparent text-lg ${color}`} onChange={handleOnchange} />
+        <input
+          type="date"
+          className={`mx-4 cursor-pointer bg-transparent text-lg ${color}`}
+          onChange={handleOnchange}
+        />
         <button
           onClick={handleNextWeek}
           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"

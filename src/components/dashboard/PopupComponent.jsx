@@ -12,11 +12,22 @@ import {
 
 Modal.setAppElement("#root");
 
-function PopupComponent({ onClose, onSubmit }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+function PopupComponent({
+  onClose,
+  onSubmit,
+  updateDataTask,
+  updateDataTaskId,
+}) {
+  const [title, setTitle] = useState(
+    updateDataTask ? updateDataTask.title : ""
+  );
+  const [description, setDescription] = useState(
+    updateDataTask ? updateDataTask.description : ""
+  );
   const [image, setImage] = useState(null);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(
+    updateDataTask ? updateDataTask.date : ""
+  );
 
   const handleCloseModal = () => {
     onClose();
@@ -24,7 +35,7 @@ function PopupComponent({ onClose, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, description, image, selectedDate });
+    onSubmit({ title, description, image, selectedDate, updateDataTaskId });
     // Kiểm tra xem đã có hình ảnh được chọn hay chưa
     if (!image) {
       console.log("No image selected!");
@@ -79,7 +90,7 @@ function PopupComponent({ onClose, onSubmit }) {
           className="absolute top-0 right-0 m-4 text-xl cursor-pointer"
           onClick={handleCloseModal}
         >
-          X
+          x
         </button>
 
         <form method="post" onSubmit={handleSubmit}>
@@ -91,6 +102,7 @@ function PopupComponent({ onClose, onSubmit }) {
               type="text"
               id="title"
               value={title}
+              required
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
@@ -102,6 +114,7 @@ function PopupComponent({ onClose, onSubmit }) {
               className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
               type="date"
               id="date"
+              required
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
             />
@@ -131,7 +144,10 @@ function PopupComponent({ onClose, onSubmit }) {
             />
           </label>
 
-          <label htmlFor="comment" className="flex items-center justify-between text-l mb-6 text-left">
+          <label
+            htmlFor="comment"
+            className="flex items-center justify-between text-l mb-6 text-left"
+          >
             <div className="bg-black w-8 h-8 rounded-full"></div>
             <input
               className="border rounded-full py-2 w-11/12 px-3 bg-ededed mt-2"

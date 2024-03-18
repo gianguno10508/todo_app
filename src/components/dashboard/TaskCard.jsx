@@ -7,6 +7,7 @@ import {
   faClock,
   faComment,
   faPaperclip,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 function formatDate(dateString) {
@@ -15,7 +16,7 @@ function formatDate(dateString) {
   return dateObj.toLocaleDateString("en-US", options);
 }
 
-function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
+function TaskCard({ task, deleteTask, updateTask, color, bg }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
   const {
@@ -135,20 +136,17 @@ function TaskCard({ task, deleteTask, updateTask, updateTaskTest, color, bg }) {
       <p
         className={`my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
       >
-        {task.title}
+        {task.description}
       </p>
-
-      {mouseIsOver && (
-        <button
-          onClick={() => {
-            deleteTask(task.id);
-          }}
-          className={`stroke-gray-500
+      <button
+        onClick={() => {
+          updateTask(task.id);
+        }}
+        className={`stroke-gray-500
           hover:bg-columnBackgroundColor absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
-        >
-          <TrashIcon />
-        </button>
-      )}
+      >
+        <FontAwesomeIcon icon={faPenToSquare} />
+      </button>
     </div>
   );
 }

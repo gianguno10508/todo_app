@@ -14,7 +14,6 @@ const Header = (props) => {
     localStorage.getItem("data-theme") === "dark" ? true : false
   );
   const [darkMode, setDarkMode] = useState("bg-white");
-
   const handleChangeTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
@@ -53,14 +52,22 @@ const Header = (props) => {
           onClick={props.onChangeMode}
         />
         <Link to={"/about"}>
-          <img src={About} alt="about" style={{ maxWidth: "50px", marginRight: "10px", borderRadius: "50%" }} />
+          <img
+            src={About}
+            alt="about"
+            style={{
+              maxWidth: "50px",
+              marginRight: "10px",
+              borderRadius: "50%",
+            }}
+          />
         </Link>
       </div>
       <div className="w-2/4">
         <FormSearch />
       </div>
       <div className="w-1/4">
-        <AccountAndNotification />
+        <AccountAndNotification user={props.user} />
       </div>
     </div>
   );

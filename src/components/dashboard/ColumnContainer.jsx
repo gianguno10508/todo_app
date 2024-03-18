@@ -101,22 +101,8 @@ function ColumnContainer({
       "
       >
         <div className="flex gap-2">
-          <div
-            className={`flex
-            justify-center
-            items-center
-            bg-columnBackgroundColor
-            px-2
-            py-1
-            text-sm
-            rounded-full
-            ${color}
-            `}
-          >
-            0
-          </div>
           {!editMode && column.title}
-          {/* {editMode && (
+          {editMode && (
             <input
               className="bg-black focus:border-rose-500 border rounded outline-none px-2"
               value={column.title}
@@ -130,7 +116,7 @@ function ColumnContainer({
                 setEditMode(false);
               }}
             />
-          )} */}
+          )}
         </div>
         <button
           onClick={() => {

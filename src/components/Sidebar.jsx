@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/solid";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../untils/functions";
 
-const Sidebar = ({ isOpen, onClose, onTabClick }) => {
+const Sidebar = ({ isOpen, onClose, onTabClick, user }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
     onTabClick(tabName);
+  };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
   return (
     <Transition show={isOpen}>
@@ -31,7 +38,7 @@ const Sidebar = ({ isOpen, onClose, onTabClick }) => {
           </div>
           <div
             className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
-              activeTab === "Accounts"
+              activeTab === "Calendar"
                 ? "bg-gray-800 text-gray-300"
                 : "hover:bg-gray-800 hover:text-gray-300"
             }`}
@@ -41,7 +48,7 @@ const Sidebar = ({ isOpen, onClose, onTabClick }) => {
           </div>
           <div
             className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
-              activeTab === "Accounts"
+              activeTab === "Schedule"
                 ? "bg-gray-800 text-gray-300"
                 : "hover:bg-gray-800 hover:text-gray-300"
             }`}
@@ -58,6 +65,28 @@ const Sidebar = ({ isOpen, onClose, onTabClick }) => {
             onClick={() => handleTabClick("Profile")}
           >
             Profile
+          </div>
+          {user.role === "admin" && (
+            <div
+              className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
+                activeTab === "Admin"
+                  ? "bg-gray-800 text-gray-300"
+                  : "hover:bg-gray-800 hover:text-gray-300"
+              }`}
+              onClick={() => handleTabClick("Admin")}
+            >
+              Admin
+            </div>
+          )}
+          <div
+            className={`py-2 absolute px-4 bottom-1.5 text-lg cursor-pointer transition-colors duration-300 ${
+              activeTab === ""
+                ? "bg-gray-800 text-gray-300"
+                : "hover:text-gray-300"
+            }`}
+            onClick={handleLogout}
+          >
+            Logout
           </div>
         </div>
       </div>

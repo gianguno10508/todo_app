@@ -13,6 +13,8 @@ import ColumnContainer from "./ColumnContainer";
 import TaskCard from "./TaskCard";
 import PopupComponent from "./PopupComponent";
 import { connect } from "react-redux";
+import { getInforUser, setInforUser } from "../../untils/functions";
+import axios from "axios";
 
 const defaultCols = [
   {
@@ -33,68 +35,68 @@ const defaultTasks = [
   {
     id: "1",
     columnId: "todo",
-    content: "List admin APIs for dashboard",
+    title: "List admin APIs for dashboard",
   },
   {
     id: "2",
     columnId: "todo",
-    content:
+    title:
       "Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation",
   },
   {
     id: "3",
     columnId: "doing",
-    content: "Conduct security testing",
+    title: "Conduct security testing",
   },
   {
     id: "4",
     columnId: "doing",
-    content: "Analyze competitors",
+    title: "Analyze competitors",
   },
   {
     id: "5",
     columnId: "done",
-    content: "Create UI kit documentation",
+    title: "Create UI kit documentation",
   },
   {
     id: "6",
     columnId: "done",
-    content: "Dev meeting",
+    title: "Dev meeting",
   },
   {
     id: "7",
     columnId: "done",
-    content: "Deliver dashboard prototype",
+    title: "Deliver dashboard prototype",
   },
   {
     id: "8",
     columnId: "todo",
-    content: "Optimize application performance",
+    title: "Optimize application performance",
   },
   {
     id: "9",
     columnId: "todo",
-    content: "Implement data validation",
+    title: "Implement data validation",
   },
   {
     id: "10",
     columnId: "todo",
-    content: "Design database schema",
+    title: "Design database schema",
   },
   {
     id: "11",
     columnId: "todo",
-    content: "Integrate SSL web certificates into workflow",
+    title: "Integrate SSL web certificates into workflow",
   },
   {
     id: "12",
     columnId: "doing",
-    content: "Implement error logging and monitoring",
+    title: "Implement error logging and monitoring",
   },
   {
     id: "13",
     columnId: "doing",
-    content: "Design and implement responsive UI",
+    title: "Design and implement responsive UI",
   },
 ];
 
@@ -105,6 +107,8 @@ function Dashboard(props) {
   const [activeColumn, setActiveColumn] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
   const [editable, setEditable] = useState(false);
+  const [updateDataTask, setUpdateDataTask] = useState();
+  const [updateDataTaskId, setUpdateDataTaskId] = useState();
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -116,6 +120,7 @@ function Dashboard(props) {
   const [color, setColor] = useState("text-black");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [columnId, setColumnId] = useState("");
+  const [statusChange, setStatusChange] = useState(false);
   const handleSubmission = (data) => {
     // Xử lý dữ liệu được trả về từ PopupComponent
     // setSubmittedData(data);
@@ -129,14 +134,36 @@ function Dashboard(props) {
         date: `${data && data.selectedDate}`,
         image: `${data && data.image}`,
       };
-
-      setTasks([...tasks, newTask]);
+      if (data.updateDataTaskId) {
+        const updatedTasks = tasks.map((task) =>
+          task.id === data.updateDataTaskId
+            ? {
+                ...task,
+                title: data.title || task.title,
+                description: data.description || task.description,
+                date: data.selectedDate || task.date,
+                image: data.image || task.image,
+              }
+            : task
+        );
+        setTasks(updatedTasks);
+      }else{
+        setTasks([...tasks, newTask]);
+      }
     }
+    // const newTasks = tasks.map((task, index) => {
+    //   if (index !== id) return task;
+    //   return { ...task, content };
+    // });
+    // console.log(newTasks);
+    // setTasks(newTasks);
     setIsPopupOpen(false); // Đóng PopupComponent sau khi xử lý dữ liệu
   };
   const closePopup = () => {
     setIsPopupOpen(false);
   };
+  console.log(columns);
+  console.log(tasks);
   useEffect(() => {
     if (props.darkmode === "active dark mode") {
       setColor("text-white");
@@ -146,6 +173,69 @@ function Dashboard(props) {
       setBg("bg-white");
     }
   }, [props.darkmode]);
+  const user = getInforUser();
+  useEffect(() => {
+    if (user && user !== null) {
+      // if(user.dashboard)
+      if (user.dashboard.length > 0) {
+        setColumns(user.dashboard[0].column);
+        const taskRes = user.dashboard[0].listTask;
+        const tasksWithId = taskRes.map((task, index) => ({
+          ...task,
+          id: index, // Thêm trường id là chỉ số của mảng
+        }));
+        setTasks(tasksWithId);
+      }
+    }
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (user && user !== null) {
+          const response = await axios.post("http://localhost:3001/auth/me", {
+            email: user.email,
+          });
+          setInforUser(response.data);
+        }
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
+      }
+    };
+    fetchData();
+  }, [statusChange]);
+  const handleUpdateTask = async () => {
+    try {
+      const url = "http://localhost:3001/action/edit";
+      const data = {
+        _id: user._id,
+        dashboard: [
+          {
+            column: columns,
+            listTask: tasks,
+          },
+        ],
+      };
+
+      const response = await axios.post(url, data);
+      if (response.data.msg === "OK") {
+        setStatusChange(true);
+        alert("Update Success!");
+      }
+    } catch (error) {
+      console.error("Error editing data:", error);
+    }
+  };
+  // useEffect(()=>{
+  //   const fetchData = async () => {
+
+  //   fetchData();
+  // },[tasks, columns]);
+
+  // if(user && user !== null){
+  //   setTasks(user.)
+  // }
   return (
     <div
       className={`
@@ -161,7 +251,12 @@ function Dashboard(props) {
       `}
     >
       {isPopupOpen && (
-        <PopupComponent onClose={closePopup} onSubmit={handleSubmission} />
+        <PopupComponent
+          onClose={closePopup}
+          updateDataTask={updateDataTask}
+          updateDataTaskId={updateDataTaskId}
+          onSubmit={handleSubmission}
+        />
       )}
       <DndContext
         sensors={sensors}
@@ -240,12 +335,20 @@ function Dashboard(props) {
           document.body
         )}
       </DndContext>
+      <div
+        onClick={handleUpdateTask}
+        className="cursor-pointer left-[50%] translate-y-2/4 absolute bottom-[15px] rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      >
+        <button>Update</button>
+      </div>
     </div>
   );
 
   function createTask(columnId) {
     setColumnId(columnId);
     setIsPopupOpen(true);
+    setUpdateDataTask();
+    setUpdateDataTaskId();
   }
 
   function deleteTask(id) {
@@ -253,13 +356,16 @@ function Dashboard(props) {
     setTasks(newTasks);
   }
 
-  function updateTask(id, content) {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task;
-      return { ...task, content };
-    });
-
-    setTasks(newTasks);
+  function updateTask(id, title, description, date) {
+    setIsPopupOpen(true);
+    setUpdateDataTask(tasks[id]);
+    setUpdateDataTaskId(id);
+    // const newTasks = tasks.map((task, index) => {
+    //   if (index !== id) return task;
+    //   return { ...task, content };
+    // });
+    // console.log(newTasks);
+    // setTasks(newTasks);
   }
 
   function createNewColumn() {

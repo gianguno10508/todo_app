@@ -8,6 +8,8 @@ import Schedule from "./schedule/Schedule";
 import Dashboard from "./dashboard/Dashboard";
 import { connect } from "react-redux";
 import About from "./About";
+import { getInforUser } from "../untils/functions";
+import { useNavigate } from "react-router-dom";
 const Main = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
@@ -21,9 +23,15 @@ const Main = (props) => {
   const [color, setColor] = useState("text-black");
   const [bg, setBg] = useState("bg-white");
   const [darkMode, setDarkMode] = useState("bg-white");
-  
+  const user = getInforUser();
+  const navigate = useNavigate();
   useEffect(() => {
-    if (props.darkmode == "active dark mode") {
+    if (user === null) {
+      navigate("/login");
+    }
+  }, [navigate, user]);
+  useEffect(() => {
+    if (props.darkmode === "active dark mode") {
       setColor("text-white");
       setBg("bg-black");
       setDarkMode("bg-9a9a9a");
@@ -33,7 +41,7 @@ const Main = (props) => {
       setDarkMode("bg-white");
     }
   }, [props.darkmode]);
-  
+
   const [theme, setTheme] = useState("light");
   const toggleTheme = () => {
     if (theme === "light") {
@@ -49,14 +57,18 @@ const Main = (props) => {
         isOpen={isSidebarOpen}
         onClose={toggleSidebar}
         onTabClick={handleTabClick}
+        user={user}
       />
       <div className={`main-content  ${isSidebarOpen ? "ml-64" : ""}`}>
-        <div className={`header ${darkMode} relative border-b border-gray-500 `}>
+        <div
+          className={`header ${darkMode} relative border-b border-gray-500 `}
+        >
           <Header
             isSidebarOpen={isSidebarOpen}
             toggleSidebar={toggleSidebar}
             onChangeColor={setBackgroundColor}
             onChangeMode={toggleTheme}
+            user={user}
           />
         </div>
         <div className="content container mx-auto max-w-screen-xl">
@@ -78,4 +90,3 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-

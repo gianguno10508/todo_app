@@ -1,11 +1,47 @@
 import { TEInput, TERipple } from "tw-elements-react";
 import DrawImage from "../assets/images/draw2.webp";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import FacebookLogin from "react-facebook-login";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getInforUser, setInforUser } from "../untils/functions";
 const Login = () => {
   const navigate = useNavigate();
+  const [messageCallback, setMessageCallback] = useState();
+  const [infor, setInfor] = useState({
+    username: "",
+    password: "",
+  });
+  const handleOnChange = (event) => {
+    setInfor({ ...infor, [event.target.name]: event.target.value });
+  };
+  const user = getInforUser();
+  useEffect(() => {
+    if (user === null) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  }, [navigate, user]);
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3001/auth/login", {
+        email: infor.username,
+        password: infor.password,
+      });
+      if (response.data.msg) {
+        setMessageCallback("Password is not correct");
+      } else {
+        setInforUser(response.data);
+        navigate("/");
+      }
+    } catch (error) {
+      if (error) {
+        setMessageCallback(error.response.data.errors[0].msg);
+      }
+    }
+  };
   const handleRedirectRegister = () => {
     navigate("/register");
   };
@@ -23,7 +59,7 @@ const Login = () => {
 
           {/* <!-- Right column container --> */}
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-            <form method="POST">
+            <form method="POST" onSubmit={handleSubmitLogin}>
               {/* <!-- Separator between social media sign in and email/password sign in --> */}
               <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <h2 className="mx-4 mb-0 text-center text-3xl font-semibold dark:text-white">
@@ -38,6 +74,7 @@ const Login = () => {
                 name="username"
                 size="lg"
                 className="mb-6"
+                onChange={handleOnChange}
                 required
               ></TEInput>
 
@@ -47,11 +84,12 @@ const Login = () => {
                 name="password"
                 label="Password"
                 className="mb-6"
+                onChange={handleOnChange}
                 required
                 size="lg"
               ></TEInput>
 
-              <div className="mb-6 flex items-center justify-between">
+              <div className="mb-3 flex items-center justify-between">
                 {/* <!-- Remember me checkbox --> */}
                 <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
                   <input
@@ -71,6 +109,18 @@ const Login = () => {
                 {/* <!--Forgot password link--> */}
                 <a href="#!">Forgot password?</a>
               </div>
+              {messageCallback && (
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "#ff0000",
+                    fontWeight: "700",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {messageCallback}
+                </p>
+              )}
               {/* <!-- Login button --> */}
               <div className="text-center lg:text-left">
                 <TERipple className="block w-full" rippleColor="light">
