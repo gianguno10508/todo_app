@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser, faMessage } from "@fortawesome/free-solid-svg-icons";
 import Notifications from "./notifications/Notifications";
+import Avatar from '../../assets/images/avatar.webp';
 import Account from "./account/Account";
 
 const AccountAndNotification = ({ user }) => {
@@ -24,20 +25,22 @@ const AccountAndNotification = ({ user }) => {
   const [listTask, setListTask] = useState();
   useEffect(() => {
     if (user && user !== null) {
-      if (user.dashboard.length > 0) {
-        // Lấy ngày hiện tại
-        const currentDate = new Date();
-
-        // Tạo ngày 3 ngày sau
-        const threeDaysLater = new Date(currentDate);
-        threeDaysLater.setDate(currentDate.getDate() + 3);
-
-        // Lọc ra những task có date trong khoảng từ ngày hiện tại đến 3 ngày sau
-        const filteredTasks = user.dashboard[0].listTask.filter((task) => {
-          const taskDate = new Date(task.date);
-          return taskDate >= currentDate && taskDate <= threeDaysLater;
-        });
-        setListTask(filteredTasks);
+      if(user.dashboard){
+        if (user.dashboard.length > 0) {
+          // Lấy ngày hiện tại
+          const currentDate = new Date();
+  
+          // Tạo ngày 3 ngày sau
+          const threeDaysLater = new Date(currentDate);
+          threeDaysLater.setDate(currentDate.getDate() + 3);
+  
+          // Lọc ra những task có date trong khoảng từ ngày hiện tại đến 3 ngày sau
+          const filteredTasks = user.dashboard[0].listTask.filter((task) => {
+            const taskDate = new Date(task.date);
+            return taskDate >= currentDate && taskDate <= threeDaysLater;
+          });
+          setListTask(filteredTasks);
+        }
       }
     }
     // setTomorrowItems(filteredItems);
@@ -76,7 +79,7 @@ const AccountAndNotification = ({ user }) => {
       </div>
       {/* <p className={`text-${mode}`}>test1@gmail.com</p> */}
       <img
-        src={user.avatar}
+        src={user.avatar ? user.avatar : Avatar}
         style={{ width: 35, height: 35, borderRadius: "100%" }}
         alt="avt"
       />

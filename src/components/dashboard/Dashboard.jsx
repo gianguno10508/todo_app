@@ -36,67 +36,43 @@ const defaultTasks = [
     id: "1",
     columnId: "todo",
     title: "List admin APIs for dashboard",
+    date: "2024-03-20",
+    description: 'Lorem'
   },
   {
     id: "2",
     columnId: "todo",
-    title:
-      "Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation",
+    title: "Develop user registration functionality with OTP delivered on SMS",
+    date: '2024-03-20',
+    description: 'Lorem'
   },
   {
     id: "3",
     columnId: "doing",
     title: "Conduct security testing",
+    date: '2024-03-20',
+    description: 'Lorem'
   },
   {
     id: "4",
     columnId: "doing",
     title: "Analyze competitors",
+    date: '2024-03-20',
+    description: 'Lorem'
   },
   {
     id: "5",
     columnId: "done",
     title: "Create UI kit documentation",
+    date: '2024-03-20',
+    description: 'Lorem'
   },
   {
     id: "6",
     columnId: "done",
     title: "Dev meeting",
-  },
-  {
-    id: "7",
-    columnId: "done",
-    title: "Deliver dashboard prototype",
-  },
-  {
-    id: "8",
-    columnId: "todo",
-    title: "Optimize application performance",
-  },
-  {
-    id: "9",
-    columnId: "todo",
-    title: "Implement data validation",
-  },
-  {
-    id: "10",
-    columnId: "todo",
-    title: "Design database schema",
-  },
-  {
-    id: "11",
-    columnId: "todo",
-    title: "Integrate SSL web certificates into workflow",
-  },
-  {
-    id: "12",
-    columnId: "doing",
-    title: "Implement error logging and monitoring",
-  },
-  {
-    id: "13",
-    columnId: "doing",
-    title: "Design and implement responsive UI",
+    date: '2024-03-20',
+    description: 'Lorem'
   },
 ];
 
@@ -147,7 +123,7 @@ function Dashboard(props) {
             : task
         );
         setTasks(updatedTasks);
-      }else{
+      } else {
         setTasks([...tasks, newTask]);
       }
     }
@@ -177,14 +153,16 @@ function Dashboard(props) {
   useEffect(() => {
     if (user && user !== null) {
       // if(user.dashboard)
-      if (user.dashboard.length > 0) {
-        setColumns(user.dashboard[0].column);
-        const taskRes = user.dashboard[0].listTask;
-        const tasksWithId = taskRes.map((task, index) => ({
-          ...task,
-          id: index, // Thêm trường id là chỉ số của mảng
-        }));
-        setTasks(tasksWithId);
+      if (user.dashboard) {
+        if (user.dashboard.length > 0) {
+          setColumns(user.dashboard[0].column);
+          const taskRes = user.dashboard[0].listTask;
+          const tasksWithId = taskRes.map((task, index) => ({
+            ...task,
+            id: index, // Thêm trường id là chỉ số của mảng
+          }));
+          setTasks(tasksWithId);
+        }
       }
     }
   }, []);
