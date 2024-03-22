@@ -66,7 +66,7 @@ const Sidebar = ({ isOpen, onClose, onTabClick, user }) => {
           >
             Profile
           </div>
-          {user.role === "admin" && (
+          {user && user.role === "admin" && (
             <div
               className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
                 activeTab === "Admin"

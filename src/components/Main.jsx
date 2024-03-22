@@ -25,9 +25,14 @@ const Main = (props) => {
   const [darkMode, setDarkMode] = useState("bg-white");
   const user = getInforUser();
   const navigate = useNavigate();
+  console.log(user);
   useEffect(() => {
-    if (user === null) {
+    console.log('sdfdsfdfdf');
+    if (user == null) {
+      console.log('sdsd');
       navigate("/login");
+    }else{
+      console.log('asddf');
     }
   }, [navigate, user]);
   useEffect(() => {

@@ -79,7 +79,7 @@ const AccountAndNotification = ({ user }) => {
       </div>
       {/* <p className={`text-${mode}`}>test1@gmail.com</p> */}
       <img
-        src={user.avatar ? user.avatar : Avatar}
+        src={user && user.avatar ? user.avatar : Avatar}
         style={{ width: 35, height: 35, borderRadius: "100%" }}
         alt="avt"
       />
