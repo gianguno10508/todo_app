@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import About from "./About";
 import { getInforUser } from "../untils/functions";
 import { useNavigate } from "react-router-dom";
+import Admin from "./Admin";
 const Main = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
@@ -25,14 +26,9 @@ const Main = (props) => {
   const [darkMode, setDarkMode] = useState("bg-white");
   const user = getInforUser();
   const navigate = useNavigate();
-  console.log(user);
   useEffect(() => {
-    console.log('sdfdsfdfdf');
     if (user == null) {
-      console.log('sdsd');
       navigate("/login");
-    }else{
-      console.log('asddf');
     }
   }, [navigate, user]);
   useEffect(() => {
@@ -81,6 +77,7 @@ const Main = (props) => {
           {selectedTab === "Calendar" && <Calendar />}
           {selectedTab === "Schedule" && <Schedule />}
           {selectedTab === "Profile" && <Profile />}
+          {selectedTab === "Admin" && <Admin />}
         </div>
       </div>
     </div>

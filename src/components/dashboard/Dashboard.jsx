@@ -100,7 +100,6 @@ function Dashboard(props) {
   const handleSubmission = (data) => {
     // Xử lý dữ liệu được trả về từ PopupComponent
     // setSubmittedData(data);
-    console.log(data);
     if (data) {
       const newTask = {
         id: generateId(),
