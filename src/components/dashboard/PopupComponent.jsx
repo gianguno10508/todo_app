@@ -24,10 +24,11 @@ function PopupComponent({
   const [description, setDescription] = useState(
     updateDataTask ? updateDataTask.description : ""
   );
-  const [image, setImage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
     updateDataTask ? updateDataTask.date : ""
   );
+  const [link, setLink] = useState(updateDataTask ? updateDataTask.link : "");
+  // const [comment, setComment] = useState(updateDataTask ? updateDataTask.comment : "");
 
   const handleCloseModal = () => {
     onClose();
@@ -35,12 +36,14 @@ function PopupComponent({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, description, image, selectedDate, updateDataTaskId });
-    // Kiểm tra xem đã có hình ảnh được chọn hay chưa
-    if (!image) {
-      console.log("No image selected!");
-    }
-
+    onSubmit({
+      title,
+      description,
+      link,
+      selectedDate,
+      // comment,
+      updateDataTaskId,
+    });
     // Tạo một đối tượng FileReader để đọc file
     // const reader = new FileReader();
     // reader.onload = () => {
@@ -52,14 +55,10 @@ function PopupComponent({
     // Reset state
     setTitle("");
     setDescription("");
-    setImage(null);
+    // setComment("");
     setSelectedDate("");
+    setLink("");
     handleCloseModal();
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
   };
 
   return (
@@ -122,12 +121,13 @@ function PopupComponent({
 
           <label htmlFor="image" className="text-l mb-6 text-left">
             <FontAwesomeIcon icon={faPaperclip} />
-            <span className="pl-2 font-bold">Upload Image</span>
+            <span className="pl-2 font-bold">Link file</span>
             <input
-              className="mb-6 w-full mt-2"
-              type="file"
-              id="image"
-              onChange={handleImageChange}
+              className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
+              type="text"
+              id="link"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
             />
           </label>
 
@@ -144,7 +144,7 @@ function PopupComponent({
             />
           </label>
 
-          <label
+          {/* <label
             htmlFor="comment"
             className="flex items-center justify-between text-l mb-6 text-left"
           >
@@ -152,12 +152,12 @@ function PopupComponent({
             <input
               className="border rounded-full py-2 w-11/12 px-3 bg-ededed mt-2"
               type="text"
-              id="title"
+              id="comment"
               placeholder="Write a comment"
-              // value={title}
-              // onChange={(e) => setTitle(e.target.value)}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             />
-          </label>
+          </label> */}
 
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Submit

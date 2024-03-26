@@ -84,9 +84,9 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
               <FontAwesomeIcon icon={faClock} />
               {formatDate(task.date)}
             </div>
-            <div className="comment flex gap-1 items-center">
+            {/* <div className="comment flex gap-1 items-center">
               <FontAwesomeIcon icon={faComment} />1
-            </div>
+            </div> */}
           </div>
         </div>
         {mouseIsOver && (
@@ -125,7 +125,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      className="bg-gray-300 p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative task"
+      className="bg-gray-300 p-2.5 h-[100px] min-h-[100px] items-center flex flex-col text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative task"
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}
@@ -134,9 +134,14 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
       }}
     >
       <p
-        className={`my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
+        className={`my-auto h-[100%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
       >
         {task.description}
+      </p>
+      <p
+        className={`my-auto h-[100%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
+      >
+        {task.link}
       </p>
       <button
         onClick={() => {

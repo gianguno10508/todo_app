@@ -101,13 +101,15 @@ function Dashboard(props) {
     // Xử lý dữ liệu được trả về từ PopupComponent
     // setSubmittedData(data);
     if (data) {
+      // console.log(data);
       const newTask = {
         id: generateId(),
         columnId,
         title: `${data && data.title}`,
         description: `${data && data.description}`,
         date: `${data && data.selectedDate}`,
-        image: `${data && data.image}`,
+        link: `${data && data.link}`,
+        // comment: `${data && data.comment}`,
       };
       if (data.updateDataTaskId) {
         const updatedTasks = tasks.map((task) =>
@@ -117,7 +119,8 @@ function Dashboard(props) {
                 title: data.title || task.title,
                 description: data.description || task.description,
                 date: data.selectedDate || task.date,
-                image: data.image || task.image,
+                link: data.link || task.link,
+                // comment: data.comment || task.comment,
               }
             : task
         );
@@ -137,8 +140,6 @@ function Dashboard(props) {
   const closePopup = () => {
     setIsPopupOpen(false);
   };
-  console.log(columns);
-  console.log(tasks);
   useEffect(() => {
     if (props.darkmode === "active dark mode") {
       setColor("text-white");
@@ -216,9 +217,9 @@ function Dashboard(props) {
   return (
     <div
       className={`
-      m-auto
+      mx-auto
       flex
-      min-h-screen
+      mt-20
       w-full
       items-center
       overflow-x-auto

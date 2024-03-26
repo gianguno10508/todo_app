@@ -48,11 +48,11 @@ const Sidebar = ({ isOpen, onClose, onTabClick, user }) => {
           </div>
           <div
             className={`py-2 px-4 text-lg cursor-pointer transition-colors duration-300 ${
-              activeTab === "Schedule"
+              activeTab === "Schedule2"
                 ? "bg-gray-800 text-gray-300"
                 : "hover:bg-gray-800 hover:text-gray-300"
             }`}
-            onClick={() => handleTabClick("Schedule")}
+            onClick={() => handleTabClick("Schedule2")}
           >
             Schedule
           </div>

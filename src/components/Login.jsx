@@ -5,6 +5,7 @@ import FacebookLogin from "react-facebook-login";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getInforUser, setInforUser } from "../untils/functions";
+import PopupForgotPassword from "./PopupForgotPassword";
 const Login = () => {
   const navigate = useNavigate();
   const [messageCallback, setMessageCallback] = useState();
@@ -12,6 +13,10 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
   const handleOnChange = (event) => {
     setInfor({ ...infor, [event.target.name]: event.target.value });
   };
@@ -48,6 +53,9 @@ const Login = () => {
   const responseFacebook = (response) => {
     console.log(response);
   };
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
   return (
     <section className="mx-auto max-w-7xl p-7 min-h-screen flex items-center">
       <div className="h-full">
@@ -56,7 +64,7 @@ const Login = () => {
           <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
             <img src={DrawImage} className="w-full" alt="img" />
           </div>
-
+          {isPopupOpen && <PopupForgotPassword onClose={closePopup} />}
           {/* <!-- Right column container --> */}
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             <form method="POST" onSubmit={handleSubmitLogin}>
@@ -107,7 +115,7 @@ const Login = () => {
                 </div>
 
                 {/* <!--Forgot password link--> */}
-                <a href="#!">Forgot password?</a>
+                <span style={{cursor: 'pointer'}} onClick={handleOpenPopup}>Forgot password?</span>
               </div>
               {messageCallback && (
                 <p

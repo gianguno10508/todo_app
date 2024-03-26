@@ -11,6 +11,7 @@ import About from "./About";
 import { getInforUser } from "../untils/functions";
 import { useNavigate } from "react-router-dom";
 import Admin from "./Admin";
+import Schedule2 from "./schedule/Schedule2";
 const Main = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
@@ -75,7 +76,7 @@ const Main = (props) => {
         <div className="content container mx-auto max-w-screen-xl">
           {selectedTab === "Dashboard" && <Dashboard />}
           {selectedTab === "Calendar" && <Calendar />}
-          {selectedTab === "Schedule" && <Schedule />}
+          {selectedTab === "Schedule2" && <Schedule2 />}
           {selectedTab === "Profile" && <Profile />}
           {selectedTab === "Admin" && <Admin />}
         </div>
