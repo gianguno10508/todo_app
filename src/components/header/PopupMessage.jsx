@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import axios from "axios";
+import ImgNotification from "../../assets/images/notification.svg";
 
 Modal.setAppElement("#root");
 
-function PopupForgotPassword({ onClose }) {
+function PopupMessage({ onClose, user }) {
   const handleCloseModal = () => {
     onClose();
   };
@@ -42,7 +43,7 @@ function PopupForgotPassword({ onClose }) {
       //   }
     }
   };
-
+  console.log(user);
   return (
     <Modal
       className="popup-modal"
@@ -56,68 +57,40 @@ function PopupForgotPassword({ onClose }) {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
         content: {
-          width: "600px",
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
+          width: "70%",
+          height: "70%",
+          top: "0",
+          left: "0",
+          right: "0",
+          bottom: "0",
           borderRadius: "0",
           border: "none",
         },
       }}
     >
-      <div className="flex relative flex-col text-left p-8 bg-white rounded-lg">
+      <div className="flex relative w-full h-full flex-col text-left p-8 bg-white rounded-lg">
         <button
           className="absolute top-0 right-0 m-4 text-xl cursor-pointer"
           onClick={handleCloseModal}
         >
           x
         </button>
-
-        <form method="post" onSubmit={handleSubmit}>
-          <label htmlFor="email" className="text-l mb-6 text-left">
-            <span className="pl-2 font-bold">Your Email</span>
-            <input
-              className="border rounded py-2 px-3 mb-6 w-full bg-ededed mt-2"
-              type="email"
-              id="email"
-              required
-              onChange={handleChangeEmail}
-            />
-            <p
-              style={{
-                fontSize: "0.8rem",
-                color: "#b1b1b1",
-                fontWeight: "400",
-                marginBottom: "20px",
-              }}
-            >
-              * Add your email and get code
-            </p>
-          </label>
-          {messageCallback && (
-            <p
-              style={{
-                fontSize: "1rem",
-                color: "#ff0000",
-                fontWeight: "700",
-                marginBottom: "20px",
-              }}
-              component={"p"}
-            >
-              {messageCallback}
-            </p>
-          )}
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Send
-          </button>
-        </form>
+        {/* {user && user.message_from.length > 0 ? (
+          user.message_from.map((item, index) => (
+            <div className="item-message mb-5">
+              <b>{item.subject}</b>
+              <p style={{color: "rgb(145 145 145)"}}>{item.message.length > 50 ? `${item.message.slice(0, 50)}...` : item.message}</p>
+            </div>
+          ))
+        ) : ( */}
+        <div className="flex justify-center items-center flex-col">
+          <h2 className="text-2xl">You don't have message</h2>
+          <img src={ImgNotification} className="max-w-28" alt="img" />
+        </div>
+        {/* )} */}
       </div>
     </Modal>
   );
 }
 
-export default PopupForgotPassword;
+export default PopupMessage;
