@@ -14,6 +14,14 @@ function PopupMessage({ onClose, user }) {
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedUserFrom, setSelectedUserFrom] = useState(null);
+
+  const handleItemClick = (subject, userFrom) => {
+    setSelectedSubject(subject);
+    setSelectedUserFrom(userFrom);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -43,7 +51,6 @@ function PopupMessage({ onClose, user }) {
       //   }
     }
   };
-  console.log(user);
   return (
     <Modal
       className="popup-modal"
@@ -75,20 +82,72 @@ function PopupMessage({ onClose, user }) {
         >
           x
         </button>
-        {user && user.message_from.length > 0 ? (
+        {selectedSubject ? (
+          <div className="message-details">
+            <h3 className="font-bold text-xl" >Subject: {selectedSubject}</h3>
+            <h4>{selectedUserFrom}</h4>
+            {user.message_from
+              .filter((item) => item.subject === selectedSubject)
+              .map((item, index) => (
+                <div key={index}>
+                  <p>{item.message}</p>
+                </div>
+              ))}
+            {user.message_to
+              .filter((item) => item.subject === selectedSubject)
+              .map((item, index) => (
+                <div key={index}>
+                  <p>{item.message}</p>
+                </div>
+              ))}
+          </div>
+        )
+          :
+          user &&
+            user.message_from.length > 0 ? (
+            <>
+              {/* Create a map to store unique items */}
+              {Object.values(
+                user.message_from.reduce((uniqueMap, item) => {
+                  const key = `${item.user_from}-${item.subject}`;
+                  // Add the item to the map if the key doesn't exist yet
+                  if (!uniqueMap[key]) {
+                    uniqueMap[key] = item;
+                  }
+                  return uniqueMap;
+                }, {})
+              ).map((uniqueItem, index) => (
+                <div key={index} className="item-message mb-5 bg-gray-200 p-2 rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-pointer relative" onClick={() => handleItemClick(uniqueItem.subject, uniqueItem.user_from)}>
+                  <p style={{ color: "rgb(145 145 145)", marginBottom: "-10px" }}>{uniqueItem.user_from}</p>
+                  <b className="text-2xl">{uniqueItem.subject}</b>
+                  <p style={{ color: "rgb(145 145 145)", marginTop: "-10px" }}>{uniqueItem.message.length > 50 ? `${uniqueItem.message.slice(0, 50)}...` : uniqueItem.message}</p>
+                </div>
+              ))}
+            </>
+          ) : (
+            <div className="flex justify-center items-center flex-col">
+              <h2 className="text-2xl">You don't have message</h2>
+              <img src={ImgNotification} className="max-w-28" alt="img" />
+            </div>
+          )
+
+        }
+
+
+        {/* {user && user.message_from.length > 0 ? (
           user.message_from.map((item, index) => (
             <div className="item-message mb-5 bg-gray-200 p-2 rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-pointer relative">
-              <p style={{color: "rgb(145 145 145)", marginBottom: "-10px"}}>{item.user_from}</p>
+              <p style={{ color: "rgb(145 145 145)", marginBottom: "-10px" }}>{item.user_from}</p>
               <b className="text-2xl">{item.subject}</b>
-              <p style={{color: "rgb(145 145 145)", marginTop: '-10px'}}>{item.message.length > 50 ? `${item.message.slice(0, 50)}...` : item.message}</p>
+              <p style={{ color: "rgb(145 145 145)", marginTop: '-10px' }}>{item.message.length > 50 ? `${item.message.slice(0, 50)}...` : item.message}</p>
             </div>
           ))
         ) : (
-        <div className="flex justify-center items-center flex-col">
-          <h2 className="text-2xl">You don't have message</h2>
-          <img src={ImgNotification} className="max-w-28" alt="img" />
-        </div>
-        )}
+          <div className="flex justify-center items-center flex-col">
+            <h2 className="text-2xl">You don't have message</h2>
+            <img src={ImgNotification} className="max-w-28" alt="img" />
+          </div>
+        )} */}
       </div>
     </Modal>
   );
