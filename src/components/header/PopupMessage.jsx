@@ -75,19 +75,20 @@ function PopupMessage({ onClose, user }) {
         >
           x
         </button>
-        {/* {user && user.message_from.length > 0 ? (
+        {user && user.message_from.length > 0 ? (
           user.message_from.map((item, index) => (
-            <div className="item-message mb-5">
-              <b>{item.subject}</b>
-              <p style={{color: "rgb(145 145 145)"}}>{item.message.length > 50 ? `${item.message.slice(0, 50)}...` : item.message}</p>
+            <div className="item-message mb-5 bg-gray-200 p-2 rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-pointer relative">
+              <p style={{color: "rgb(145 145 145)", marginBottom: "-10px"}}>{item.user_from}</p>
+              <b className="text-2xl">{item.subject}</b>
+              <p style={{color: "rgb(145 145 145)", marginTop: '-10px'}}>{item.message.length > 50 ? `${item.message.slice(0, 50)}...` : item.message}</p>
             </div>
           ))
-        ) : ( */}
+        ) : (
         <div className="flex justify-center items-center flex-col">
           <h2 className="text-2xl">You don't have message</h2>
           <img src={ImgNotification} className="max-w-28" alt="img" />
         </div>
-        {/* )} */}
+        )}
       </div>
     </Modal>
   );
