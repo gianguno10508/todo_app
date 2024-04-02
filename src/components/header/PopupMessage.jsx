@@ -5,7 +5,7 @@ import ImgNotification from "../../assets/images/notification.svg";
 import { format } from "date-fns";
 import { setInforUser } from "../../untils/functions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 Modal.setAppElement("#root");
 
@@ -18,6 +18,7 @@ function PopupMessage({ onClose, user }) {
   const [shouldRefesh, setShouldRefesh] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedUserFrom, setSelectedUserFrom] = useState(null);
+  const [openMessage, setOpenMessage] = useState(null);
   const [dataApi, setDataApi] = useState();
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +67,9 @@ function PopupMessage({ onClose, user }) {
       }
     }
   };
+  const btnNewMessage = () =>{
+
+  }
   const messages = dataApi
     ? [...dataApi.message_to, ...dataApi.message_from]
     : [...user.message_to, ...user.message_from];
@@ -205,6 +209,13 @@ function PopupMessage({ onClose, user }) {
         ) : user && user.message_from.length > 0 ? (
           <>
             {/* Create a map to store unique items */}
+            <div
+              onClick={btnNewMessage}
+              className="cursor-pointer flex items-center justify-center w-40 rounded bg-primary px-2 mb-5 pb-2.5 pt-3 text-sm font-medium uppercase text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+            >
+              <FontAwesomeIcon className="mr-2" icon={faPencil} />
+              <button>New Message</button>
+            </div>
             {Object.values(
               user.message_from.reduce((uniqueMap, item) => {
                 const key = `${item.user_from}-${item.subject}`;
