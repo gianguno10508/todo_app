@@ -75,7 +75,7 @@ const Intro = () => {
         <Text>
           <h1 style={{color: "#fff"}}>Hi,</h1>
           <h3 style={{color: "#fff"}}>I'm Nguyen Dong Anh.</h3>
-          <h6 style={{color: "#fff"}}>CNTT</h6>
+          <h6 style={{color: "#fff"}}>CNTT-K18G</h6>
         </Text>
       </SubBox>
       <SubBox>

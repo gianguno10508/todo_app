@@ -197,6 +197,7 @@ function Dashboard(props) {
       };
 
       const response = await axios.post(url, data);
+      console.log(response);
       if (response.data.msg === "OK") {
         setStatusChange(true);
         alert("Update Success!");
