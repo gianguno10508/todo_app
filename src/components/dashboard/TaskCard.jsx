@@ -18,7 +18,7 @@ function formatDate(dateString) {
 
 function TaskCard({ task, deleteTask, updateTask, color, bg }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const {
     setNodeRef,
     attributes,
@@ -58,7 +58,11 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
   } else {
     bg = "bg-9a9a9a";
   }
-  if (editMode) {
+  const handleClick = () => {
+    updateTask(task.id);
+    toggleEditMode();
+  };
+  if (!editMode) {
     return (
       <div
         ref={setNodeRef}
@@ -71,7 +75,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
         onMouseLeave={() => {
           setMouseIsOver(false);
         }}
-        onClick={toggleEditMode}
+        onClick={handleClick}
         className={`${bg} p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
       >
         <div className="img"></div>
@@ -87,6 +91,9 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
             {/* <div className="comment flex gap-1 items-center">
               <FontAwesomeIcon icon={faComment} />1
             </div> */}
+          </div>
+          <div className="link mt-2">
+            <a href={task.link} className="hover:text-red-500" target="_blank">{task.link}</a>
           </div>
         </div>
         {mouseIsOver && (
@@ -143,7 +150,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
       >
         {task.link}
       </p>
-      <button
+      {/* <button
         onClick={() => {
           updateTask(task.id);
         }}
@@ -151,7 +158,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
           hover:bg-columnBackgroundColor absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
       >
         <FontAwesomeIcon icon={faPenToSquare} />
-      </button>
+      </button> */}
     </div>
   );
 }
