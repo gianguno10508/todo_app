@@ -42,7 +42,7 @@ const Calendar = (props) => {
       return (
         formattedParts[2] === taskParts[0] && // Năm
         0 + formattedParts[1] === taskParts[1] && // Tháng
-        formattedParts[0] === taskParts[2] // Ngày
+        (formattedParts[0] < 10 ? 0 + formattedParts[0] : formattedParts[0]) === taskParts[2] // Ngày
       );
     };
     // Tính toán ngày bắt đầu của tuần

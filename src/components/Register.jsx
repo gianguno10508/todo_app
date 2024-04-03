@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TEInput, TERipple } from "tw-elements-react";
 import Upload from "../assets/images/upload.png";
-import { Typography } from "@material-ui/core";
 import { getInforUser } from "../untils/functions";
 
 const Register = () => {
