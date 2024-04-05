@@ -61,8 +61,6 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
     bg = "bg-9a9a9a";
   }
   const handleClick = () => {
-    console.log(task.id);
-    console.log(task);
     updateTask(task.id);
     toggleEditMode();
   };
@@ -90,7 +88,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
             <div className="content flex gap-3">
               <div className="date flex gap-1 items-center">
                 {/* <FontAwesomeIcon icon={faClock} /> */}
-                <img style={{ maxWidth: "35px", borderRadius: "100%" }} src={Clock} alt="Clock" />
+                <img style={{ maxWidth: "25px", borderRadius: "100%" }} src={Clock} alt="Clock" />
                 <span className="text-lg">{formatDate(task.date)}</span>
               </div>
               {/* <div className="comment flex gap-1 items-center">
@@ -100,7 +98,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
             <div className="link mt-2">
               {task.link &&
                 <a href={task.link} className="hover:text-red-500 flex items-center" target="_blank">
-                  <img src={Link} alt="link" style={{ maxWidth: "35px" }} />
+                  <img src={Link} alt="link" style={{ maxWidth: "25px" }} />
                   <span className="text-lg"> {task.link}</span>
                 </a>
               }
