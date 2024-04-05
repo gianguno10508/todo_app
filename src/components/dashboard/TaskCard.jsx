@@ -10,6 +10,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from '../../assets/images/link.png';
+import Clock from '../../assets/images/clock.gif';
 
 function formatDate(dateString) {
   const dateObj = new Date(dateString);
@@ -50,7 +51,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
       <div
         ref={setNodeRef}
         style={style}
-        className="opacity-30 bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-2 border-rose-500  cursor-grab relative"
+        className="opacity-30 bg-mainBackgroundColor p-2.5 items-center flex text-left rounded-xl border-2 border-rose-500  cursor-grab relative"
       />
     );
   }
@@ -60,6 +61,8 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
     bg = "bg-9a9a9a";
   }
   const handleClick = () => {
+    console.log(task.id);
+    console.log(task);
     updateTask(task.id);
     toggleEditMode();
   };
@@ -76,30 +79,32 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
         onMouseLeave={() => {
           setMouseIsOver(false);
         }}
-        onClick={handleClick}
-        className={`${bg} p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
+        className={`${bg} p-2.5 items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
       >
-        <div className="img"></div>
-        <div className="content-col">
-          <div className="title-col">
-            <a href="#">{task.title}</a>
-          </div>
-          <div className="content flex gap-3">
-            <div className="date flex gap-1 items-center">
-              <FontAwesomeIcon icon={faClock} />
-              {formatDate(task.date)}
+        <div className="content-col-custom" onClick={handleClick}>
+          <div className="img"></div>
+          <div className="content-col">
+            <div className="title-col my-2">
+              <a href="#" className="text-xl font-bold mb-2">{task.title}</a>
             </div>
-            {/* <div className="comment flex gap-1 items-center">
+            <div className="content flex gap-3">
+              <div className="date flex gap-1 items-center">
+                {/* <FontAwesomeIcon icon={faClock} /> */}
+                <img style={{ maxWidth: "35px", borderRadius: "100%" }} src={Clock} alt="Clock" />
+                <span className="text-lg">{formatDate(task.date)}</span>
+              </div>
+              {/* <div className="comment flex gap-1 items-center">
               <FontAwesomeIcon icon={faComment} />1
             </div> */}
-          </div>
-          <div className="link mt-2">
-            {task.link &&
-              <a href={task.link} className="hover:text-red-500 flex items-center" target="_blank">
-                <img src={Link} alt="link" style={{ maxWidth: "30px" }} />
-                {task.link}
-              </a>
-            }
+            </div>
+            <div className="link mt-2">
+              {task.link &&
+                <a href={task.link} className="hover:text-red-500 flex items-center" target="_blank">
+                  <img src={Link} alt="link" style={{ maxWidth: "35px" }} />
+                  <span className="text-lg"> {task.link}</span>
+                </a>
+              }
+            </div>
           </div>
         </div>
         {mouseIsOver && (
@@ -108,7 +113,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
               deleteTask(task.id);
             }}
             className={`stroke-gray-500
-          hover:bg-columnBackgroundColor absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
+          hover:bg-columnBackgroundColor z-5 absolute right-4 top-1/2 -translate-y-1/2 bg-columnBackgroundColor p-2 rounded opacity-60 hover:opacity-100 ${color}`}
           >
             <TrashIcon />
           </button>

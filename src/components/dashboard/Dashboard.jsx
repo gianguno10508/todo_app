@@ -115,13 +115,13 @@ function Dashboard(props) {
         const updatedTasks = tasks.map((task) =>
           task.id === data.updateDataTaskId
             ? {
-                ...task,
-                title: data.title || task.title,
-                description: data.description || task.description,
-                date: data.selectedDate || task.date,
-                link: data.link || task.link,
-                // comment: data.comment || task.comment,
-              }
+              ...task,
+              title: data.title || task.title,
+              description: data.description || task.description,
+              date: data.selectedDate || task.date,
+              link: data.link || task.link,
+              // comment: data.comment || task.comment,
+            }
             : task
         );
         setTasks(updatedTasks);
@@ -336,9 +336,14 @@ function Dashboard(props) {
   }
 
   function updateTask(id, title, description, date) {
+    tasks.map((task) => {
+      if (task.id === id) {
+        setUpdateDataTask(task);
+      }
+    })
     setIsPopupOpen(true);
-    setUpdateDataTask(tasks[id]);
     setUpdateDataTaskId(id);
+    console.log(updateDataTask);
     // const newTasks = tasks.map((task, index) => {
     //   if (index !== id) return task;
     //   return { ...task, content };

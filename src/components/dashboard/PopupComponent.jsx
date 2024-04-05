@@ -18,6 +18,8 @@ function PopupComponent({
   updateDataTask,
   updateDataTaskId,
 }) {
+  console.log(updateDataTask);
+  console.log(updateDataTaskId);
   const [title, setTitle] = useState(
     updateDataTask ? updateDataTask.title : ""
   );
