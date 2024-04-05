@@ -140,7 +140,7 @@ const Schedule2 = (props) => {
         formattedParts[2] === taskParts[2] && // Năm
         0 + formattedParts[1] === taskParts[1] && // Tháng
         (formattedParts[0] < 10 ? 0 + formattedParts[0] : formattedParts[0]) ===
-          taskParts[0] // Ngày
+        taskParts[0] // Ngày
       );
     };
     // Tính toán ngày bắt đầu của tuần
@@ -150,58 +150,51 @@ const Schedule2 = (props) => {
     if (dataRes.length > 0) {
       const firstValue = dataRes[0];
       const chuoi = firstValue["Lớp học phần"];
-      const date = chuoi.split("(")[1].split(" ")[0];
-      const [ngay, thang, nam] = date.split("/");
-      ngayObj = new Date(nam, thang - 1, ngay-1);
+      if (chuoi) {
+        const date = chuoi.split("(")[1].split(" ")[0];
+        const [ngay, thang, nam] = date.split("/");
+        ngayObj = new Date(nam, thang - 1, ngay - 1);
 
-      for (let i = 2; i < daysInWeek + 2; i++) {
-        const day = new Date(weekStart);
-        day.setDate(weekStart.getDate() + i);
-        const isToday =
-          day.toDateString() === currentDate.toDateString() &&
-          currentWeek === 0;
-        const formattedDate = `${day.getDate()}/${
-          day.getMonth() + 1
-        }/${day.getFullYear()}`;
-        // Duyệt qua từng task trong listTask
-        if (dataRes.length > 0) {
-          // dataRes.forEach((data) => {
-          //   // if (compareDates(formattedDate, task.date)) {
-          //     dayObj.events.push({
-          //       name: data.title,
-          //       description: data.description,
-          //     });
-          //   // }
-          // });
-          // console.log(dataRes[5]["Thứ"]);
-          // Sử dụng phương thức split để tách chuỗi và lấy ngày tháng đầu tiên
-          // console.log(ngay);
-          let dayObj = {
-            weekday: daysOfWeek[i],
-            date: formattedDate,
-            events: [], // Khởi tạo events rỗng ban đầu
-            color: isToday ? "bg-blue-300" : "bg-slate-200",
-          };
-          let newDate = 0;
-          let formattedNewDate = 0;
-          dataRes.forEach((row, index) => {
-            newDate = addDays(ngayObj, index);
-            formattedNewDate = format(newDate, "dd/MM/yyyy");
-            if (compareDates(formattedDate, formattedNewDate)) {
-              // console.log(row["Địa điểm"]);
-              dayObj.events.push({
-                name: row["Địa điểm"],
-                // description: Object.values(row)[2],
-              });
-              // found = true; // Đánh dấu đã tìm thấy và không cần tiếp tục lặp
-            }
-          });
-
-          // dayObj.events.push({
-          //   name: Object.values(row)[1],
-          //   description: Object.values(row)[2],
-          // })
-          weekDays.push(dayObj);
+        for (let i = 2; i < daysInWeek + 2; i++) {
+          const day = new Date(weekStart);
+          day.setDate(weekStart.getDate() + i);
+          const isToday =
+            day.toDateString() === currentDate.toDateString() &&
+            currentWeek === 0;
+          const formattedDate = `${day.getDate()}/${day.getMonth() + 1
+            }/${day.getFullYear()}`;
+          // Duyệt qua từng task trong listTask
+          if (dataRes.length > 0) {
+            let dayObj = {
+              weekday: daysOfWeek[i],
+              date: formattedDate,
+              events: [], // Khởi tạo events rỗng ban đầu
+              color: isToday ? "bg-blue-300" : "bg-slate-200",
+            };
+            let newDate = 0;
+            let formattedNewDate = 0;
+            dataRes.forEach((row, index) => {
+              newDate = addDays(ngayObj, index);
+              formattedNewDate = format(newDate, "dd/MM/yyyy");
+              if (compareDates(formattedDate, formattedNewDate)) {
+                // console.log(row["Địa điểm"]);
+                if (row["Giảng viên"]) {
+                  dayObj.events.push({
+                    lophocphan: row["Lớp học phần"],
+                    giangvien: row["Giảng viên"],
+                    tiethoc: row["Tiết học"],
+                    diadiem: row["Địa điểm"],
+                  });
+                }
+                // found = true; // Đánh dấu đã tìm thấy và không cần tiếp tục lặp
+              }
+            });
+            // dayObj.events.push({
+            //   name: Object.values(row)[1],
+            //   description: Object.values(row)[2],
+            // })
+            weekDays.push(dayObj);
+          }
         }
       }
     }
@@ -289,29 +282,31 @@ const Schedule2 = (props) => {
           My Schedule
         </h2>
       </div>
-      <button
-        className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
-        onClick={handlePrevWeek}
-      >
-        <FontAwesomeIcon icon={faAngleLeft} className="text-gray-600 text-xl" />
-      </button>
-      <input
-        type="date"
-        className={`mx-4 cursor-pointer bg-transparent text-lg ${color}`}
-        onChange={handleOnchange}
-      />
-      <button
-        onClick={handleNextWeek}
-        className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
-      >
-        <FontAwesomeIcon
-          icon={faAngleRight}
-          className="text-gray-600 text-xl"
+      <div className="top-schedule flex justify-center items-center">
+        <button
+          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+          onClick={handlePrevWeek}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} className="text-gray-600 text-xl" />
+        </button>
+        <input
+          type="date"
+          className={`mx-4 cursor-pointer bg-transparent text-lg ${color}`}
+          onChange={handleOnchange}
         />
-      </button>
+        <button
+          onClick={handleNextWeek}
+          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+        >
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            className="text-gray-600 text-xl"
+          />
+        </button>
+      </div>
+      <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
       <div className="nav-buttons flex justify-center items-center gap-6 py-5">
-        <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-        {dataRes.length > 0 && <ColEvents days={getCurrentWeekDays()} />}
+        {dataRes.length > 0 && <ColEvents days={getCurrentWeekDays()} schedule={true} />}
       </div>
       {/* <ColEvents days={getCurrentWeekDays()} /> */}
     </div>

@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, onClose, onTabClick, user }) => {
   };
   return (
     <Transition show={isOpen}>
-      <div className="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white p-4 transform transition-transform duration-300 ease-in-out">
+      <div className="fixed inset-y-0 z-10 left-0 w-64 bg-gray-900 text-white p-4 transform transition-transform duration-300 ease-in-out">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 hover:text-gray-300"

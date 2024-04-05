@@ -9,6 +9,7 @@ import {
   faPaperclip,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from '../../assets/images/link.png';
 
 function formatDate(dateString) {
   const dateObj = new Date(dateString);
@@ -93,7 +94,12 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
             </div> */}
           </div>
           <div className="link mt-2">
-            <a href={task.link} className="hover:text-red-500" target="_blank">{task.link}</a>
+            {task.link &&
+              <a href={task.link} className="hover:text-red-500 flex items-center" target="_blank">
+                <img src={Link} alt="link" style={{ maxWidth: "30px" }} />
+                {task.link}
+              </a>
+            }
           </div>
         </div>
         {mouseIsOver && (
