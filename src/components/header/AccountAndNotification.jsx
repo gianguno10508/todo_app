@@ -50,7 +50,7 @@ const AccountAndNotification = ({ user }) => {
       }
     }
     // setTomorrowItems(filteredItems);
-  }, []);
+  }, [user]);
   const closePopup = () => {
     setIsPopupOpen(false);
   };

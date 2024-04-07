@@ -15,6 +15,7 @@ const Register = () => {
 
   const [messageCallback, setMessageCallback] = useState();
   const handleImageClick = () => {
+    setMessageCallback("");
     document.getElementById("avatar").click();
   };
   const handleRedirectLogin = () => {
@@ -27,6 +28,7 @@ const Register = () => {
     code: "",
   });
   const handleOnChange = (event) => {
+    setMessageCallback("");
     setInforuser({ ...inforuser, [event.target.name]: event.target.value });
   };
   const user = getInforUser();
@@ -55,7 +57,8 @@ const Register = () => {
         }
       );
       if (response.data.status === "verify_success") {
-        navigate("/login");
+       alert("Register Success!!!");
+       navigate("/login");
       } else {
         setMessageCallback(response.data.message);
       }
@@ -78,30 +81,34 @@ const Register = () => {
     formData.append("password", inforuser.password);
     formData.append("name", inforuser.name);
     formData.append("avatar", selectedFile);
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/sendmail",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    if (!selectedFile) {
+      setMessageCallback("Please select an avatar.");
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/auth/sendmail",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.data.status === "send_mail_success") {
+          setStatusMail(true);
+        } else {
+          setMessageCallback("Account already exists");
         }
-      );
-      if (response.data.status === "send_mail_success") {
-        setStatusMail(true);
-      } else {
-        setMessageCallback("Account already exists");
-      }
-      // if (response.data.msg !== "Fail!") {
-      //   navigate("/login");
-      // } else {
-      //   setMessageCallback("Account already exists");
-      // }
-    } catch (error) {
-      console.log(error);
-      if (error.response.data) {
-        setMessageCallback(error.response.data.errors[0].msg);
+        // if (response.data.msg !== "Fail!") {
+        //   navigate("/login");
+        // } else {
+        //   setMessageCallback("Account already exists");
+        // }
+      } catch (error) {
+        console.log(error);
+        if (error.response.data) {
+          setMessageCallback(error.response.data.errors[0].msg);
+        }
       }
     }
   };
@@ -194,7 +201,6 @@ const Register = () => {
                     id="avatar"
                     name="avatar"
                     accept="image/*"
-                    required
                     onChange={handleFileChange}
                     style={{ display: "none" }}
                   />

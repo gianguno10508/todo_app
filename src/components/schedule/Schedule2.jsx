@@ -146,18 +146,17 @@ const Schedule2 = (props) => {
     // Tính toán ngày bắt đầu của tuần
     const weekStart = new Date(valueDate || currentDate);
     weekStart.setDate(weekStart.getDate() - currentDayOfWeek);
-
     if (dataRes.length > 0) {
       const firstValue = dataRes[0];
       const chuoi = firstValue["Lớp học phần"];
       if (chuoi) {
         const date = chuoi.split("(")[1].split(" ")[0];
         const [ngay, thang, nam] = date.split("/");
-        ngayObj = new Date(nam, thang - 1, ngay - 1);
+        ngayObj = new Date(nam, thang - 1, ngay-2);
 
         for (let i = 2; i < daysInWeek + 2; i++) {
           const day = new Date(weekStart);
-          day.setDate(weekStart.getDate() + i);
+          day.setDate(weekStart.getDate() + (i-1));
           const isToday =
             day.toDateString() === currentDate.toDateString() &&
             currentWeek === 0;
@@ -171,8 +170,8 @@ const Schedule2 = (props) => {
               events: [], // Khởi tạo events rỗng ban đầu
               color: isToday ? "bg-blue-300" : "bg-slate-200",
             };
-            let newDate = 0;
-            let formattedNewDate = 0;
+            let newDate = 1;
+            let formattedNewDate = 1;
             dataRes.forEach((row, index) => {
               newDate = addDays(ngayObj, index);
               formattedNewDate = format(newDate, "dd/MM/yyyy");
