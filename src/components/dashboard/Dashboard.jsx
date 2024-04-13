@@ -94,6 +94,7 @@ function Dashboard(props) {
   );
   const [bg, setBg] = useState("bg-white");
   const [color, setColor] = useState("text-black");
+  const [colorBorder, setColorBorder] = useState("black");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [columnId, setColumnId] = useState("");
   const [statusChange, setStatusChange] = useState(false);
@@ -143,10 +144,12 @@ function Dashboard(props) {
   useEffect(() => {
     if (props.darkmode === "active dark mode") {
       setColor("text-white");
-      setBg("bg-black");
+      setBg("bg-white");
+      setColorBorder("white");
     } else {
       setColor("text-black");
       setBg("bg-white");
+      setColorBorder("black");
     }
   }, [props.darkmode]);
   const user = getInforUser();
@@ -225,7 +228,6 @@ function Dashboard(props) {
       overflow-x-auto
       overflow-y-hidden
       px-[40px]
-      ${bg}
       `}
     >
       {isPopupOpen && (
@@ -256,6 +258,7 @@ function Dashboard(props) {
                   updateTask={updateTask}
                   color={color}
                   bg={bg}
+                  colorBorder={colorBorder}
                   tasks={tasks.filter((task) => task.columnId === col.id)}
                 />
               ))}
@@ -272,7 +275,7 @@ function Dashboard(props) {
             rounded-lg
             bg-mainBackgroundColor
             border-2
-            border-columnBackgroundColor
+            border-${colorBorder}
             p-4
             ring-rose-500
             hover:ring-2

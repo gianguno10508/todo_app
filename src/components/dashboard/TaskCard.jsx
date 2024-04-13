@@ -77,7 +77,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
         onMouseLeave={() => {
           setMouseIsOver(false);
         }}
-        className={`${bg} p-2.5 items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative`}
+        className={`${bg} p-2.5 items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset text-black hover:ring-rose-500 cursor-grab relative`}
       >
         <div className="content-col-custom" onClick={handleClick}>
           <div className="img"></div>
@@ -150,12 +150,12 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
       }}
     >
       <p
-        className={`my-auto h-[100%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
+        className={`my-auto h-[100%] w-full overflow-y-auto text-lg overflow-x-hidden whitespace-pre-wrap text-black`}
       >
         {task.description}
       </p>
       <p
-        className={`my-auto h-[100%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap ${color}`}
+        className={`my-auto h-[100%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap text-black`}
       >
         {task.link}
       </p>

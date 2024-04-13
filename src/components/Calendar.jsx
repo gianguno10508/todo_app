@@ -112,12 +112,12 @@ const Calendar = (props) => {
       </div>
       <div className="nav-buttons flex justify-center items-center gap-6 py-5">
         <button
-          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+          className={`flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:${color === "text-white" ? 'bg-gray-700' : 'bg-gray-200'}`}
           onClick={handlePrevWeek}
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
-            className="text-gray-600 text-xl"
+            className={`${color} text-xl`}
           />
         </button>
         <input
@@ -127,11 +127,11 @@ const Calendar = (props) => {
         />
         <button
           onClick={handleNextWeek}
-          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+          className={`flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:${color === "text-white" ? 'bg-gray-700' : 'bg-gray-200'}`}
         >
           <FontAwesomeIcon
             icon={faAngleRight}
-            className="text-gray-600 text-xl"
+            className={`${color} text-xl`}
           />
         </button>
       </div>

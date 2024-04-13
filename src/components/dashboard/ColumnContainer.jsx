@@ -15,6 +15,7 @@ function ColumnContainer({
   updateTask,
   color,
   bg,
+  colorBorder
 }) {
   const [editMode, setEditMode] = useState(false);
 
@@ -84,27 +85,25 @@ function ColumnContainer({
         onClick={() => {
           setEditMode(true);
         }}
-        className="
-      bg-mainBackgroundColor
-      text-md
-      h-[60px]
-      cursor-grab
-      rounded-md
-      rounded-b-none
-      p-3
-      font-bold
-      border-columnBackgroundColor
-      border-4
-      flex
-      items-center
-      justify-between
-      "
+        className={`bg-mainBackgroundColor
+        text-md
+        h-[60px]
+        cursor-pointer
+        rounded-md
+        rounded-b-none
+        p-3
+        font-bold
+        border-${colorBorder}
+        border-2
+        flex
+        items-center
+        justify-between`}
       >
         <div className="flex gap-2">
           {!editMode && column.title}
           {editMode && (
             <input
-              className="bg-black focus:border-rose-500 border rounded outline-none px-2"
+              className="rounded outline-none px-2"
               value={column.title}
               onChange={(e) => updateColumn(column.id, e.target.value)}
               autoFocus
@@ -137,7 +136,7 @@ function ColumnContainer({
 
       {/* Column task container */}
       <div
-        className={`flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto border-columnBackgroundColor border-4 ${color}`}
+        className={`flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto border-${colorBorder} border-2 ${color}`}
       >
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
@@ -154,7 +153,7 @@ function ColumnContainer({
       </div>
       {/* Column footer */}
       <button
-        className={`flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black ${color}`}
+        className={`flex gap-2 items-center border-${colorBorder} border-2 rounded-md rounded-t-none p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 ${color}`}
         onClick={() => {
           createTask(column.id);
         }}

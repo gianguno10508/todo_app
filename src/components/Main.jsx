@@ -12,6 +12,9 @@ import { getInforUser } from "../untils/functions";
 import { useNavigate } from "react-router-dom";
 import Admin from "./Admin";
 import Schedule2 from "./schedule/Schedule2";
+import Statistics from "./Statistics";
+import Light from '../assets/images/sang.jpg';
+import Dark from '../assets/images/toi.jpg';
 const Main = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
@@ -35,11 +38,11 @@ const Main = (props) => {
   useEffect(() => {
     if (props.darkmode === "active dark mode") {
       setColor("text-white");
-      setBg("bg-black");
+      setBg(Dark);
       setDarkMode("bg-9a9a9a");
     } else {
       setColor("text-black");
-      setBg("bg-white");
+      setBg(Light);
       setDarkMode("bg-white");
     }
   }, [props.darkmode]);
@@ -53,7 +56,7 @@ const Main = (props) => {
     }
   };
   return (
-    <div className={`main min-h-screen ${bg}`}>
+    <div className={`main min-h-screen`} style={{backgroundImage: `url(${bg})`}}>
       {/* Sidebar */}
       <Sidebar
         isOpen={isSidebarOpen}
@@ -78,6 +81,7 @@ const Main = (props) => {
           {selectedTab === "Calendar" && <Calendar />}
           {selectedTab === "Schedule2" && <Schedule2 />}
           {selectedTab === "Profile" && <Profile />}
+          {selectedTab === "Statistics" && <Statistics />}
           {selectedTab === "Admin" && <Admin />}
         </div>
       </div>

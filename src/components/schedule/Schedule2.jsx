@@ -152,11 +152,11 @@ const Schedule2 = (props) => {
       if (chuoi) {
         const date = chuoi.split("(")[1].split(" ")[0];
         const [ngay, thang, nam] = date.split("/");
-        ngayObj = new Date(nam, thang - 1, ngay-2);
+        ngayObj = new Date(nam, thang - 1, ngay - 2);
 
         for (let i = 2; i < daysInWeek + 2; i++) {
           const day = new Date(weekStart);
-          day.setDate(weekStart.getDate() + (i-1));
+          day.setDate(weekStart.getDate() + (i - 1));
           const isToday =
             day.toDateString() === currentDate.toDateString() &&
             currentWeek === 0;
@@ -283,10 +283,10 @@ const Schedule2 = (props) => {
       </div>
       <div className="top-schedule flex justify-center items-center">
         <button
-          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+          className={`flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:${color === "text-white" ? 'bg-gray-700' : 'bg-gray-200'}`}
           onClick={handlePrevWeek}
         >
-          <FontAwesomeIcon icon={faAngleLeft} className="text-gray-600 text-xl" />
+          <FontAwesomeIcon icon={faAngleLeft} className={`${color} text-xl`} />
         </button>
         <input
           type="date"
@@ -295,11 +295,11 @@ const Schedule2 = (props) => {
         />
         <button
           onClick={handleNextWeek}
-          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-200"
+          className={`flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:${color === "text-white" ? 'bg-gray-700' : 'bg-gray-200'}`}
         >
           <FontAwesomeIcon
             icon={faAngleRight}
-            className="text-gray-600 text-xl"
+            className={`${color} text-xl`}
           />
         </button>
       </div>
