@@ -3,10 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 
-const Admin = () => {
+const Admin = (props) => {
   const [dataRows, setDataRows] = useState();
   const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [color, setColor] = useState("black");
+  const [bg, setBg] = useState("black");
   const handleDelete = async (email) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
@@ -21,19 +24,30 @@ const Admin = () => {
       }
     }
   };
+  useEffect(() => {
+    if (props.darkmode === "active dark mode") {
+      setColor("white");
+      setBg("#333");
+    } else {
+      setColor("black");
+      setBg("white");
+    }
+  }, [props.darkmode]);
   const columns = [
-    { field: "id", headerName: "ID" },
-    { field: "name", headerName: "Name", flex: 1 },
+    { field: "id", headerName: "ID", headerClassName: 'super-app-theme--header', },
+    { field: "name", headerName: "Name", flex: 1, headerClassName: 'super-app-theme--header', },
     {
       field: "email",
       headerName: "Email",
       flex: 1,
+      headerClassName: 'super-app-theme--header',
     },
-    { field: "password", headerName: "Password", flex: 1 },
+    { field: "password", headerName: "Password", flex: 1, headerClassName: 'super-app-theme--header', },
     {
       field: "actions",
       headerName: "Actions",
       flex: 1,
+      headerClassName: 'super-app-theme--header',
       renderCell: (params) => (
         <div className="pointer">
           <button>
@@ -63,6 +77,7 @@ const Admin = () => {
     };
     fetchData();
   }, [shouldRefresh]);
+  console.log(color);
   return (
     <main className="p-4">
       {/* Page content */}
@@ -72,6 +87,21 @@ const Admin = () => {
             <DataGrid
               rows={dataRows}
               columns={columns}
+              sx={{
+                boxShadow: 2,
+                // borderColor: borderColor,
+                '& .MuiDataGrid-cell': {
+                  color: color,
+                  fontSize: "16px"
+                },
+                '& .MuiDataGrid-cell:hover': {
+                  color: 'primary.main'
+                },
+                '& .super-app-theme--header': {
+                  backgroundColor: bg,
+                  color: color,
+                },
+              }}
               initialState={{
                 pagination: {
                   paginationModel: { page: 0, pageSize: 20 },
@@ -86,4 +116,12 @@ const Admin = () => {
     </main>
   );
 };
-export default Admin;
+const mapDispatchToProps = () => {
+  return {};
+};
+const mapStateToProps = (state) => {
+  return {
+    darkmode: state.darkmode,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);
