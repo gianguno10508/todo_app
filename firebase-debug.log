@@ -1,0 +1,127 @@
+[debug] [2024-04-13T03:30:33.578Z] ----------------------------------------------------------------------
+[debug] [2024-04-13T03:30:33.581Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-04-13T03:30:33.581Z] CLI Version:   13.7.2
+[debug] [2024-04-13T03:30:33.581Z] Platform:      win32
+[debug] [2024-04-13T03:30:33.581Z] Node Version:  v21.7.1
+[debug] [2024-04-13T03:30:33.581Z] Time:          Sat Apr 13 2024 10:30:33 GMT+0700 (Indochina Time)
+[debug] [2024-04-13T03:30:33.582Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-13T03:30:33.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-13T03:30:33.644Z] > authorizing via signed-in user (gianguno10508@gmail.com)
+[debug] [2024-04-13T03:30:33.644Z] [iam] checking project todo-caba1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-04-13T03:30:33.645Z] > refreshing access token with scopes: []
+[debug] [2024-04-13T03:30:33.647Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-13T03:30:33.647Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:30:33.849Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 403
+[debug] [2024-04-13T03:30:33.849Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:30:33.849Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-13T03:30:33.851Z] > refreshing access token with scopes: []
+[debug] [2024-04-13T03:30:33.851Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-13T03:30:33.852Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:30:33.936Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 403
+[debug] [2024-04-13T03:30:33.936Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:30:33.936Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
+[debug] [2024-04-13T03:31:40.471Z] ----------------------------------------------------------------------
+[debug] [2024-04-13T03:31:40.473Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-04-13T03:31:40.474Z] CLI Version:   13.7.2
+[debug] [2024-04-13T03:31:40.474Z] Platform:      win32
+[debug] [2024-04-13T03:31:40.474Z] Node Version:  v21.7.1
+[debug] [2024-04-13T03:31:40.474Z] Time:          Sat Apr 13 2024 10:31:40 GMT+0700 (Indochina Time)
+[debug] [2024-04-13T03:31:40.474Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-13T03:31:40.542Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-13T03:31:40.542Z] > authorizing via signed-in user (gianguno10508@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Learn\Reactjs\todo_app
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-04-13T03:31:44.311Z] Using project from CLI flag: todo-caba1
+[debug] [2024-04-13T03:31:44.312Z] > refreshing access token with scopes: []
+[debug] [2024-04-13T03:31:44.313Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-13T03:31:44.313Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:31:44.513Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 403
+[debug] [2024-04-13T03:31:44.513Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:31:44.513Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-13T03:31:44.624Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:142:12)
+    at refreshTokens (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:515:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Client.getAccessToken (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:163:22)
+    at async Client.addAuthHeader (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:154:21)
+    at async Client.request (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:105:34)
+    at async getFirebaseProject (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:295:21)
+    at async doSetup (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:85:27)
+    at async init (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:37:9)
+[error] 
+[error] Error: Failed to get Firebase project todo-caba1. Please make sure the project exists and your account has permission to access it.
+[debug] [2024-04-13T03:32:11.996Z] ----------------------------------------------------------------------
+[debug] [2024-04-13T03:32:11.999Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-04-13T03:32:11.999Z] CLI Version:   13.7.2
+[debug] [2024-04-13T03:32:12.000Z] Platform:      win32
+[debug] [2024-04-13T03:32:12.000Z] Node Version:  v21.7.1
+[debug] [2024-04-13T03:32:12.000Z] Time:          Sat Apr 13 2024 10:32:12 GMT+0700 (Indochina Time)
+[debug] [2024-04-13T03:32:12.000Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-13T03:32:12.060Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-13T03:32:12.061Z] > authorizing via signed-in user (gianguno10508@gmail.com)
+[debug] [2024-04-13T03:32:12.061Z] [iam] checking project todo-caba1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-04-13T03:32:12.062Z] > refreshing access token with scopes: []
+[debug] [2024-04-13T03:32:12.064Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-13T03:32:12.064Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:32:12.275Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 403
+[debug] [2024-04-13T03:32:12.276Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:32:12.276Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-13T03:32:12.277Z] > refreshing access token with scopes: []
+[debug] [2024-04-13T03:32:12.278Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-13T03:32:12.278Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:32:12.341Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 403
+[debug] [2024-04-13T03:32:12.341Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-13T03:32:12.341Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
+[debug] [2024-04-13T03:32:57.956Z] ----------------------------------------------------------------------
+[debug] [2024-04-13T03:32:57.958Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login --reauth
+[debug] [2024-04-13T03:32:57.959Z] CLI Version:   13.7.2
+[debug] [2024-04-13T03:32:57.959Z] Platform:      win32
+[debug] [2024-04-13T03:32:57.959Z] Node Version:  v21.7.1
+[debug] [2024-04-13T03:32:57.959Z] Time:          Sat Apr 13 2024 10:32:57 GMT+0700 (Indochina Time)
+[debug] [2024-04-13T03:32:57.959Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=32439129&redirect_uri=http%3A%2F%2Flocalhost%3A9005&login_hint=gianguno10508%40gmail.com
+[info] 
+[info] Waiting for authentication...

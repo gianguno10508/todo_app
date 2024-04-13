@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 import Profile from "./Profile";
 import Header from "./Header";
 import Calendar from "./Calendar";
-import Schedule from "./schedule/Schedule";
 import Dashboard from "./dashboard/Dashboard";
 import { connect } from "react-redux";
 import About from "./About";
