@@ -1,7 +1,6 @@
 import { TEInput, TERipple } from "tw-elements-react";
 import DrawImage from "../assets/images/draw2.webp";
 import { useNavigate } from "react-router-dom";
-import FacebookLogin from "react-facebook-login";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getInforUser, setInforUser } from "../untils/functions";
@@ -151,36 +150,7 @@ const Login = () => {
                   </button>
                 </p>
               </div>
-
-              {/* <!-- Separator between social media sign in and email/password sign in --> */}
-              <div className="my-2 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                <p className="mx-4 mb-0 text-center text-l font-semibold dark:text-white">
-                  OR
-                </p>
-              </div>
             </form>
-            {/* <!-- Login button --> */}
-            <div className="container mx-auto flex justify-center items-center">
-              <FacebookLogin
-                appId="1082534248908784"
-                // autoLoad={true}
-                fields="name,email,picture"
-                callback={responseFacebook}
-                textButton="Login with Facebook"
-              />
-              {/* <TERipple className="block w-full" rippleColor="light">
-                <button
-                  type="submit"
-                  className="w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                >
-                  <FontAwesomeIcon
-                    style={{ fontSize: "1.2em", marginRight: "5px" }}
-                    icon={faFacebook}
-                  />
-                  Login With Facebook
-                </button>
-              </TERipple> */}
-            </div>
           </div>
         </div>
       </div>

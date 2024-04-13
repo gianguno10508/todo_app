@@ -277,6 +277,7 @@ function Dashboard(props) {
             border-2
             border-${colorBorder}
             p-4
+            bd-black
             ring-rose-500
             hover:ring-2
             flex

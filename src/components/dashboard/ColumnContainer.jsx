@@ -18,7 +18,6 @@ function ColumnContainer({
   colorBorder
 }) {
   const [editMode, setEditMode] = useState(false);
-
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);

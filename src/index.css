@@ -126,3 +126,7 @@ code {
   align-self: center;
   margin-left: 10px;
 }
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: #898989 !important;
+}
