@@ -84,6 +84,7 @@ function PopupMessage({ onClose, user }) {
     }
   };
   const handleSendMessage = async (e) => {
+    console.log(formattedDate);
     e.preventDefault();
     setMessageCallback("");
     try {
@@ -113,18 +114,44 @@ function PopupMessage({ onClose, user }) {
     }
   };
   const btnNewMessage = () => {
+    console.log('dfdf');
     setOpenMessage(true);
   }
   const messages = dataApi
     ? [...dataApi.message_to, ...dataApi.message_from]
     : [...user.message_to, ...user.message_from];
+  const sortedMessages = messages.sort((b, a) => {
+    if (!a.time || !b.time) {
+      return 0; // Trả về 0 để giữ nguyên vị trí ban đầu của tin nhắn
+    }
+    // Tách giờ và ngày ra khỏi chuỗi thời gian và chuyển đổi thành đối tượng Date
+    const [hourA, dateA] = a.time.split(' ');
+    const [hourB, dateB] = b.time.split(' ');
+    const [hourAHour, hourAMinute] = hourA.split(':').map(Number);
+    const [hourBHour, hourBMinute] = hourB.split(':').map(Number);
+    const [dateADay, dateAMonth, dateAYear] = dateA.split('/').map(Number);
+    const [dateBDay, dateBMonth, dateBYear] = dateB.split('/').map(Number);
 
-  const sortedMessages = messages.sort((a, b) => {
-    const timeA = new Date(a.time);
-    const timeB = new Date(b.time);
-    return timeA - timeB;
+    // So sánh ngày
+    if (dateAYear !== dateBYear) {
+      return dateBYear - dateAYear;
+    }
+    if (dateAMonth !== dateBMonth) {
+      return dateBMonth - dateAMonth;
+    }
+    if (dateADay !== dateBDay) {
+      return dateBDay - dateADay;
+    }
+
+    // So sánh giờ
+    if (hourAHour !== hourBHour) {
+      return hourBHour - hourAHour;
+    }
+    if (hourAMinute !== hourBMinute) {
+      return hourBMinute - hourAMinute;
+    }
+    return 0;
   });
-
   return (
     <Modal
       className="popup-modal overflow-y-auto"
@@ -162,6 +189,7 @@ function PopupMessage({ onClose, user }) {
                   placeholder="Subject..."
                   id="subject"
                   required
+                  value={subjectMessage}
                   onChange={handleOnChangeSubjectMessage}
                   name="subject"
                 />
@@ -173,6 +201,7 @@ function PopupMessage({ onClose, user }) {
                   className="border border-gray-300 p-3 mt-2 pl-2 w-full rounded-full"
                   placeholder="Mail to"
                   required
+                  value={toMessage}
                   onChange={handleOnChangeToMessage}
                   id="email_to"
                   name="email_to"
@@ -180,7 +209,7 @@ function PopupMessage({ onClose, user }) {
               </div>
               <div className="input-form mt-5">
                 <label htmlFor="message_to" className="font-bold text-xl">Message: </label>
-                <textarea name="message_to" id="message_to" className="mt-2 p-3 w-full border" onChange={handleOnChangeMessage} rows="10"></textarea>
+                <textarea name="message_to" value={messageSend} id="message_to" className="mt-2 p-3 w-full border" onChange={handleOnChangeMessage} rows="10"></textarea>
               </div>
               <div className="mess">
                 {messageCallback && (
@@ -297,6 +326,13 @@ function PopupMessage({ onClose, user }) {
               </>
             ) : (
               <div className="flex justify-center items-center flex-col">
+                <div
+                  onClick={btnNewMessage}
+                  className="cursor-pointer flex items-center justify-center w-40 rounded bg-primary px-2 mb-5 pb-2.5 pt-3 text-sm font-medium uppercase text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                >
+                  <FontAwesomeIcon className="mr-2" icon={faPencil} />
+                  <button>New Message</button>
+                </div>
                 <h2 className="text-2xl">You don't have message</h2>
                 <img src={ImgNotification} className="max-w-28" alt="img" />
               </div>

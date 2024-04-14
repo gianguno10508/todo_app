@@ -36,14 +36,16 @@ const Calendar = (props) => {
     ];
 
     const compareDates = (formattedDate, taskDate) => {
-      const formattedParts = formattedDate.split("/");
-      const taskParts = taskDate.split("-");
-      // So sánh năm, tháng và ngày
-      return (
-        formattedParts[2] === taskParts[0] && // Năm
-        0 + formattedParts[1] === taskParts[1] && // Tháng
-        (formattedParts[0] < 10 ? 0 + formattedParts[0] : formattedParts[0]) === taskParts[2] // Ngày
-      );
+      if (formattedDate && taskDate) {
+        const formattedParts = formattedDate.split("/");
+        const taskParts = taskDate.split("-");
+        // So sánh năm, tháng và ngày
+        return (
+          formattedParts[2] === taskParts[0] && // Năm
+          0 + formattedParts[1] === taskParts[1] && // Tháng
+          (formattedParts[0] < 10 ? 0 + formattedParts[0] : formattedParts[0]) === taskParts[2] // Ngày
+        );
+      }
     };
     // Tính toán ngày bắt đầu của tuần
     const weekStart = new Date(valueDate || currentDate);
@@ -53,10 +55,9 @@ const Calendar = (props) => {
       day.setDate(weekStart.getDate() + i);
       const isToday =
         day.toDateString() === currentDate.toDateString() && currentWeek === 0;
-      const formattedDate = `${day.getDate()}/${
-        day.getMonth() + 1
-      }/${day.getFullYear()}`;
-      
+      const formattedDate = `${day.getDate()}/${day.getMonth() + 1
+        }/${day.getFullYear()}`;
+
       const dayObj = {
         weekday: daysOfWeek[i],
         date: formattedDate,
@@ -65,7 +66,7 @@ const Calendar = (props) => {
       };
 
       // Duyệt qua từng task trong listTask
-      if(user.dashboard.length > 0){
+      if (user.dashboard.length > 0) {
         user.dashboard[0].listTask.forEach((task) => {
           if (compareDates(formattedDate, task.date)) {
             dayObj.events.push({ name: task.title, description: task.description });

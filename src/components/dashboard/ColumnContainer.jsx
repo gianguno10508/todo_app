@@ -84,7 +84,7 @@ function ColumnContainer({
         onClick={() => {
           setEditMode(true);
         }}
-        className={`bg-mainBackgroundColor
+        className={`
         text-md
         h-[60px]
         cursor-pointer
@@ -102,7 +102,7 @@ function ColumnContainer({
           {!editMode && column.title}
           {editMode && (
             <input
-              className="rounded outline-none px-2"
+              className="rounded bg-transparent outline-none px-2"
               value={column.title}
               onChange={(e) => updateColumn(column.id, e.target.value)}
               autoFocus
