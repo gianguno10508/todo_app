@@ -44,7 +44,10 @@ const Profile = (props) => {
   }, [statusChange]);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('sdsads');
     setMessageCallback();
+    console.log(inforuser);
+    console.log(user);
     if (inforuser.password !== inforuser.password_confirmation) {
       setMessageCallback("Password and Confirm password do not match.");
     } else if (inforuser.current_password !== user.password) {
