@@ -272,7 +272,7 @@ class AuthController {
         avatar: `${req.protocol}://${req.host}:${process.env.PORT || 3000}/${
           user.avatar
         }`,
-        // password: user.password,
+        password: user.password,
         dashboard: user.dashboard,
         role: user.role,
         message_from: user.message_from,
