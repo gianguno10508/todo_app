@@ -56,7 +56,7 @@ function TaskCard({ task, deleteTask, updateTask, color, bg }) {
     );
   }
   if (bg === "bg-white") {
-    bg = "bg-gray-200";
+    bg = "bg-slate-200";
   } else {
     bg = "bg-9a9a9a";
   }

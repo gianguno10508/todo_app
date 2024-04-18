@@ -6,16 +6,17 @@ import Notifications from "./notifications/Notifications";
 import Avatar from "../../assets/images/avatar.webp";
 import Account from "./account/Account";
 import PopupMessage from "./PopupMessage";
+import { useSelector } from "react-redux";
 
 const AccountAndNotification = ({ user }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   // const [showAccount, setShowAccount] = useState(false);
-  const mode = localStorage.getItem("data-theme");
   const handleBellClick = (event) => {
     event.stopPropagation();
     setShowNotifications((prev) => !prev);
   };
+  const userinfor = useSelector(state => state.userinfor);
   // const handleAccountClick = (event) => {
   //   event.stopPropagation();
   //   setShowAccount((prev) => !prev);
@@ -24,8 +25,8 @@ const AccountAndNotification = ({ user }) => {
     setShowNotifications(false);
     // setShowAccount(false);
   };
-  
-  const handleClickMessage = ()=>{
+
+  const handleClickMessage = () => {
     setIsPopupOpen(true);
   }
   const [listTask, setListTask] = useState();
@@ -49,16 +50,36 @@ const AccountAndNotification = ({ user }) => {
         }
       }
     }
+    if (userinfor && userinfor !== null) {
+      if (userinfor.dashboard) {
+        if (userinfor.dashboard.length > 0) {
+          // Lấy ngày hiện tại
+          const currentDate = new Date();
+
+          // Tạo ngày 3 ngày sau
+          const threeDaysLater = new Date(currentDate);
+          threeDaysLater.setDate(currentDate.getDate() + 3);
+
+          // Lọc ra những task có date trong khoảng từ ngày hiện tại đến 3 ngày sau
+          const filteredTasks = userinfor.dashboard[0].listTask.filter((task) => {
+            const taskDate = new Date(task.date);
+            return taskDate >= currentDate && taskDate <= threeDaysLater;
+          });
+          setListTask(filteredTasks);
+        }
+      }
+    }
     // setTomorrowItems(filteredItems);
-  }, [user]);
+  }, [user, userinfor]);
   const closePopup = () => {
     setIsPopupOpen(false);
   };
+  console.log();
   return (
     <div className="flex flex-row justify-end gap-2 items-center">
       <div
         className="bg-a6c5e229 border flex flex-row justify-center items-center p-4 w-6 h-6 rounded-full cursor-pointer"
-        // onClick={handleAccountClick}
+      // onClick={handleAccountClick}
       >
         <div
           className="bg-a6c5e229 border relative flex flex-row justify-center items-center p-4 w-6 h-6 rounded-full cursor-pointer"

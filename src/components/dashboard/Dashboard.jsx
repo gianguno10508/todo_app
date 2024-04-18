@@ -15,6 +15,7 @@ import PopupComponent from "./PopupComponent";
 import { connect } from "react-redux";
 import { getInforUser, setInforUser } from "../../untils/functions";
 import axios from "axios";
+import { actUserInfor } from "../../actions";
 
 const defaultCols = [
   {
@@ -201,6 +202,11 @@ function Dashboard(props) {
 
       const response = await axios.post(url, data);
       if (response.data.msg === "OK") {
+        const response = await axios.post("http://localhost:3001/auth/me", {
+          email: user.email,
+        });
+        setInforUser(response.data);
+        props.dispatchUserInfor(response.data);
         setStatusChange(true);
         alert("Update Success!");
       }
@@ -459,8 +465,12 @@ function Dashboard(props) {
 function generateId() {
   return Math.floor(Math.random() * 10001);
 }
-const mapDispatchToProps = () => {
-  return {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchUserInfor: (data) => {
+      dispatch(actUserInfor(data));
+    },
+  };
 };
 const mapStateToProps = (state) => {
   return {

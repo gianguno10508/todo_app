@@ -4,3 +4,9 @@ export const actSelectDarkMode = (data) => {
     data,
   };
 };
+export const actUserInfor= (data) => {
+  return {
+    type: 'GET_USER_INFOR',
+    data,
+  };
+};
