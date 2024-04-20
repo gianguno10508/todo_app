@@ -44,12 +44,12 @@ const Statistics = (props) => {
                             label: 'Number of Tasks',
                             data: columnCounts,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(153, 102, 255, 0.6)',
+                                'rgba(255, 159, 64, 0.6)',
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -74,12 +74,12 @@ const Statistics = (props) => {
                         label: 'Number of Tasks',
                         data: [2, 2, 2],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
@@ -112,7 +112,15 @@ const Statistics = (props) => {
                     font: {
                         size: 18,
                     },
-                },
+                }
+            },
+        },
+        layout: {
+            padding: {
+                left: 0, // Adjust the left padding to increase the space between the label and the chart
+                right: 0, // Adjust the right padding if needed
+                top: 0,
+                bottom: 50
             }
         }
     };
