@@ -31,7 +31,7 @@ const CLIENT_ID =
 const CLIENT_SECRET = "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"; // Thay bằng Client Secret của ứng dụng OAuth2
 const REDIRECT_URI = "https://developers.google.com/oauthplayground"; // URI chuyển hướng đã đăng ký trong Google Developers Console
 const REFRESH_TOKEN =
-  "1//04_ekip7JaLprCgYIARAAGAQSNwF-L9IrtcR-Y-l7PfT5-nlZU8fkPvUhsrWJTv0PWAvj-k0TELk3XaM6_lOPK7Dh3lcercqruiw"; // Thay bằng Refresh Token sau khi đã xác thực
+  "1//044Fz2ttz2fVsCgYIARAAGAQSNwF-L9Ir43MUZ94kwAQxvECo-6B1tX7oen4eUNd-Q3Cl9LTrgOpx7fg7nNzqJ9tbI88SpbEqblc"; // Thay bằng Refresh Token sau khi đã xác thực
 const ADMIN_EMAIL_ADDRESS = "shanks20508@gmail.com";
 // Khởi tạo OAuth2Client với Client ID và Client Secret
 const myOAuth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
@@ -123,6 +123,7 @@ class AuthController {
       };
       return respon;
     } catch (error) {
+      console.log(error);
       const e = {
         status: "send_mail_error",
         message: "Error send code",
@@ -135,15 +136,16 @@ class AuthController {
     const user = await UserService.findOneByEmail(userReq.email);
     if (user) {
       // Save user details
-      // await UserService.save(userReq);
-      // const req = await this.sendVerificationEmailPassword(userReq.email);
+      await UserService.save(userReq);
+      const req = await this.sendVerificationEmailPassword(userReq.email);
       // Respond with success message
       userReq.password = randomPassword;
       UserService.updateAccountPassword(userReq).then();
-      const req = {
-        status: "send_reset_success",
-        massage: "Send reset password success",
-      };
+      // const req = {
+      //   status: "send_reset_success",
+      //   massage: "Send reset password success",
+      // };
+      console.log(req);
       res.json(req);
     } else {
       // Delete uploaded avatar if user already exists
