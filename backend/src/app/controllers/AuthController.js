@@ -136,7 +136,7 @@ class AuthController {
     const user = await UserService.findOneByEmail(userReq.email);
     if (user) {
       // Save user details
-      await UserService.save(userReq);
+      // await UserService.save(userReq);
       const req = await this.sendVerificationEmailPassword(userReq.email);
       // Respond with success message
       userReq.password = randomPassword;
@@ -145,7 +145,6 @@ class AuthController {
       //   status: "send_reset_success",
       //   massage: "Send reset password success",
       // };
-      console.log(req);
       res.json(req);
     } else {
       // Delete uploaded avatar if user already exists
